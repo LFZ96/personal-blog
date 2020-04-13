@@ -6,15 +6,17 @@ router.get('/', (req, res) => {
     {
       author: 'Logan Zipkes',
       title: 'Test Post',
-      description: 'Test description',
+      description: 'This is a test description for test article #1',
       body: 'asdfasdfasdfasdfasdfasdfasdf',
+      slug: 'test-post',
       createdAt: new Date()
     },
     {
       author: 'Logan Zipkes',
       title: 'Test Post 2',
-      description: 'Test description',
+      description: 'This is a test description for test article #2',
       body: 'asdfasdfasdfasdfasdfasdfasdf',
+      slug: 'test-post2',
       createdAt: new Date()
     }
   ];

@@ -23,12 +23,14 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.get('/:title', (req, res) => {
-
+router.get('/:slug', async (req, res) => {
+  const post = await Post.findOne({ slug: req.params.slug });
+  res.render('show', { post: post });
 });
 
-router.get('/:title/edit', (req, res) => {
-
+router.get('/:slug/edit', async (req, res) => {
+  const post = await Post.findOne({ slug: req.params.slug });
+  res.render('edit', { post: post });
 });
 
 module.exports = router;
