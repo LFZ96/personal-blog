@@ -1,10 +1,13 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 const slugify = require('slugify');
+
+const Schema = mongoose.Schema;
 
 const PostSchema = new Schema({
   author: {
-    type: Schema.Types.ObjectId,
+    // type: Schema.Types.ObjectId,
+    // ref: 'User'
+    type: String,
     required: true
   },
   title: {
@@ -12,7 +15,7 @@ const PostSchema = new Schema({
     required: true
   },
   description: {
-    type: String, 
+    type: String,
     required: true
   },
   body: {
@@ -21,13 +24,12 @@ const PostSchema = new Schema({
   },
   slug: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   }
-}, {
-  timestamps: true
-});
+}, { timestamps: true });
 
-PostSchema.pre('validate', function(next) {
+PostSchema.pre('validate', function() {
   if (this.title) {
     this.slug = slugify(this.title, { lower: true, strict: true });
   }
@@ -38,4 +40,3 @@ PostSchema.pre('validate', function(next) {
 const Post = mongoose.model('Post', PostSchema);
 
 module.exports = Post;
-

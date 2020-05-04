@@ -1,9 +1,0 @@
-<div class="card w-75 mx-auto">
-  <div class="card-body">
-    <h2 class="card-title"><%= post.title %></h2>
-    <p class="card-subtitle mb-2 text-muted">Created by <%= post.author %> on <%= post.createdAt.toLocaleDateString() %></h6>
-    <p class="card-text"><%= post.body %></p>
-    <a href="/posts/<%= post.slug %>/edit" class="btn btn-primary">Edit</a>
-    <a href="/posts/<%= post.slug %>/delete" class="btn btn-danger">Delete</a>
-  </div>
-</div>

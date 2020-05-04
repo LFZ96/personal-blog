@@ -1,0 +1,30 @@
+{
+  "name": "personal-blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LFZ96/personal-blog.git"
+  },
+  "keywords": [],
+  "author": "Logan Zipkes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LFZ96/personal-blog/issues"
+  },
+  "homepage": "https://github.com/LFZ96/personal-blog#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^3.22.0",
+    "mongoose": "^5.9.11",
+    "slugify": "^1.4.0",
+    "volleyball": "^1.5.1"
+  }
+}
