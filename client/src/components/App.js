@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import axios from 'axios';
 
 import Navbar from './Navbar';
 import PostList from './PostList';

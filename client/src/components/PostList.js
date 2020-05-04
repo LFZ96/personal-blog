@@ -28,6 +28,7 @@ class PostList extends Component {
     axios.get('http://localhost:5000/')
       .then(res => {
         if (res.data.length > 0) {
+          console.log(res);
           this.setState({ posts: res.data });
         }
       })
@@ -39,7 +40,11 @@ class PostList extends Component {
   }
 
   render() {
-    return this.postList();
+    return (
+      <>
+        {this.state.posts.map(post => <Post post={post} key={post._id} />)}
+      </>
+    );
   }
 }
 

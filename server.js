@@ -24,7 +24,7 @@ const postsRouter = require('./routes/posts');
     app.use(morgan('tiny'));
 
     app.use(express.json());
-    app.use(express.urlencoded({ extended: true }));
+    app.use(express.urlencoded({ extended: false }));
     
     // ROUTES
     app.use('/', indexRouter);

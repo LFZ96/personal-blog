@@ -12,17 +12,27 @@ class NewPost extends Component {
     };
   }
 
-  onChangeTitle = e => {
-    this.setState({ title: e.target.value });
+  onChangeInput = e => {
+    const target = e.target;
+    const name = target.name;
+    const value = target.value;
+
+    this.setState({
+      [name]: value
+    });
   };
 
-  onChangeDescription = e => {
-    this.setState({ description: e.target.value });
-  };
+  // onChangeTitle = e => {
+  //   this.setState({ title: e.target.value });
+  // };
 
-  onChangeBody = e => {
-    this.setState({ body: e.target.value });
-  };
+  // onChangeDescription = e => {
+  //   this.setState({ description: e.target.value });
+  // };
+
+  // onChangeBody = e => {
+  //   this.setState({ body: e.target.value });
+  // };
 
   onSubmit = e => {
     e.preventDefault();
@@ -54,7 +64,7 @@ class NewPost extends Component {
                 type="text"
                 name="title"
                 id="title"
-                onChange={this.onChangeTitle}
+                onChange={this.onChangeInput}
                 value={this.state.title}
                 className="form-control"
                 required
@@ -67,7 +77,7 @@ class NewPost extends Component {
                 name="description"
                 id="description"
                 value={this.state.description}
-                onChange={this.onChangeDescription}
+                onChange={this.onChangeInput}
                 className="form-control"
                 required
               >
@@ -80,7 +90,7 @@ class NewPost extends Component {
                 name="body"
                 id="body"
                 value={this.state.body}
-                onChange={this.onChangeBody}
+                onChange={this.onChangeInput}
                 className="form-control"
                 required
               >
