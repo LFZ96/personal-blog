@@ -29,7 +29,7 @@ const PostSchema = new Schema({
   }
 }, { timestamps: true });
 
-PostSchema.pre('validate', function() {
+PostSchema.pre('validate', function(next) {
   if (this.title) {
     this.slug = slugify(this.title, { lower: true, strict: true });
   }
