@@ -1,9 +1,7 @@
-require('dotenv').config();
-
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
-const volleyball = require('volleyball');
+const morgan = require('morgan');
 const mongoose = require('mongoose');
 
 const indexRouter = require('./routes/index');
@@ -11,14 +9,7 @@ const postsRouter = require('./routes/posts');
 
 (async () => {
   try {
-    let DB_STRING;
-    if (process.env.NODE_ENV === 'production') {
-      DB_STRING = process.env.MONGO_URI;
-    } else {
-      DB_STRING = process.env.MONGO_STRING;
-    }
-
-    await mongoose.connect(DB_STRING, {
+    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/blog', {
       useNewUrlParser: true,
       useCreateIndex: true,
       useUnifiedTopology: true
@@ -30,7 +21,7 @@ const postsRouter = require('./routes/posts');
     // MIDDLEWARES
     app.use(helmet());
     app.use(cors());
-    app.use(volleyball);
+    app.use(morgan('tiny'));
 
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
@@ -38,6 +29,10 @@ const postsRouter = require('./routes/posts');
     // ROUTES
     app.use('/', indexRouter);
     app.use('/posts', postsRouter);
+
+    if (process.env.NODE_ENV === 'production') {
+      app.use(express.static('client/build'));
+    }
     
     // SERVER
     const PORT = process.env.PORT || 5000;
