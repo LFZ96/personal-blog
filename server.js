@@ -3,6 +3,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const path = require('path');
 
 const indexRouter = require('./routes/index');
 const postsRouter = require('./routes/posts');
@@ -30,9 +31,15 @@ const postsRouter = require('./routes/posts');
     app.use('/', indexRouter);
     app.use('/posts', postsRouter);
 
-    if (process.env.NODE_ENV === 'production') {
-      app.use(express.static('./client/build'));
-    }
+    // if (process.env.NODE_ENV === 'production') {
+    //   app.use(express.static(path.join(__dirname, 'client/build')));
+    // }
+
+    app.use(express.static(path.join(__dirname, 'client/build')));
+
+    app.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname + '/client/build/index.html'))
+    });
     
     // SERVER
     const PORT = process.env.PORT || 5000;
