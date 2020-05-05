@@ -12,7 +12,7 @@ class ShowPost extends Component {
   };
 
   componentDidMount() {
-    axios.get(`http://localhost:5000/posts/${this.props.match.params.slug}`)
+    axios.get(`https://logan-zipkes-blog.herokuapp.com/posts/${this.props.match.params.slug}`)
       .then(res => {
         const post = res.data;
 
@@ -28,7 +28,7 @@ class ShowPost extends Component {
   }
 
   deleteExercise = () => {
-    axios.delete(`http://localhost:5000/posts/${this.state.slug}`)
+    axios.delete(`https://logan-zipkes-blog.herokuapp.com/posts/${this.state.slug}`)
       .then(res => console.log(res))
       .catch(err => console.log(err));
   };
