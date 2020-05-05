@@ -16,33 +16,28 @@ const Post = props => {
 };
 
 class PostList extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      posts: []
-    };
-  }
+  state = {
+    posts: []
+  };
 
   componentDidMount() {
-    axios.get('http://localhost:5000/')
+    axios.get('/posts')
       .then(res => {
-        if (res.data.length > 0) {
-          console.log(res);
+        if (res.data > 0) {
           this.setState({ posts: res.data });
         }
       })
       .catch(err => console.log(err));
   }
 
-  postList() {
+  showPosts = () => {
     return this.state.posts.map(post => <Post post={post} key={post._id} />);
-  }
+  };
 
   render() {
     return (
       <>
-        {this.state.posts.map(post => <Post post={post} key={post._id} />)}
+        { this.state.posts.map(post => <Post post={post} key={post._id} />) }
       </>
     );
   }

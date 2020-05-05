@@ -3,35 +3,33 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class ShowPost extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      title: '',
+  state = {
+    title: '',
       author: '',
       createdAt: '',
       body: '',
       slug: ''
-    };
-  }
+  };
 
   componentDidMount() {
-    axios.get(`http://localhost:5000/posts/${this.props.match.params.slug}`)
+    axios.get(`/posts/${this.props.match.params.slug}`)
       .then(res => {
+        const post = res.data;
+
         this.setState({
-          title: res.data.title,
-          author: res.data.author,
-          createdAt: res.data.createdAt,
-          body: res.data.body,
-          slug: res.data.slug
+          title: post.title,
+          author: post.author,
+          createdAt: post.createdAt,
+          body: post.body,
+          slug: post.slug
         });
       })
       .catch(err => console.log(err));
   }
 
   deleteExercise = () => {
-    axios.delete(`http://localhost:5000/posts/${this.state.slug}`)
-      .then(res => console.log(res.data))
+    axios.delete(`/posts/${this.state.slug}`)
+      .then(res => console.log(res))
       .catch(err => console.log(err));
   };
 

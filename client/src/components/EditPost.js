@@ -2,42 +2,38 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 class EditPost extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      author: '',
+  state = {
+    author: '',
       title: '',
       createdAt: '',
       description: '',
       body: ''
-    };
-  }
+  };
 
   componentDidMount() {
-    axios.get(`http://localhost:5000/posts/${this.props.match.params.slug}`)
+    axios.get(`/posts/${this.props.match.params.slug}`)
       .then(res => {
+        const post = res.data;
+
         this.setState({
-          title: res.data.title,
-          author: res.data.author,
-          createdAt: res.data.createdAt,
-          description: res.data.description,
-          body: res.data.body
+          title: post.title,
+          author: post.author,
+          createdAt: post.createdAt,
+          description: post.description,
+          body: post.body
         });
       })
       .catch(err => console.log(err));
   }
 
-  onChangeTitle = e => {
-    this.setState({ title: e.target.value });
-  };
+  onChangeInput = e => {
+    const target = e.target;
+    const name = target.name;
+    const value = target.value;
 
-  onChangeDescription = e => {
-    this.setState({ description: e.target.value });
-  };
-
-  onChangeBody = e => {
-    this.setState({ body: e.target.value });
+    this.setState({
+      [name]: value
+    });
   };
 
   onSubmit = e => {
@@ -50,7 +46,7 @@ class EditPost extends Component {
       body: this.state.body
     };
 
-    axios.post(`http://localhost:5000/posts/${this.props.match.params.slug}/edit`, post)
+    axios.post(`/posts/${this.props.match.params.slug}/edit`, post)
       .then(res => console.log(res))
       .catch(err => console.log(err));
     
@@ -72,7 +68,7 @@ class EditPost extends Component {
                 id="title"
                 className="form-control"
                 value={this.state.title}
-                onChange={this.onChangeTitle}
+                onChange={this.onChangeInput}
                 required
               />
             </div>
@@ -83,7 +79,7 @@ class EditPost extends Component {
                 name="description"
                 id="description"
                 value={this.state.description}
-                onChange={this.onChangeDescription}
+                onChange={this.onChangeInput}
                 className="form-control"
                 required
               >
@@ -96,7 +92,7 @@ class EditPost extends Component {
                 name="body"
                 id="body"
                 value={this.state.body}
-                onChange={this.onChangeBody}
+                onChange={this.onChangeInput}
                 className="form-control"
                 required
               >

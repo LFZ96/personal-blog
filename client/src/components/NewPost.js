@@ -2,15 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 class NewPost extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      title: '',
+  state = {
+    title: '',
       description: '',
       body: ''
-    };
-  }
+  };
 
   onChangeInput = e => {
     const target = e.target;
@@ -22,18 +18,6 @@ class NewPost extends Component {
     });
   };
 
-  // onChangeTitle = e => {
-  //   this.setState({ title: e.target.value });
-  // };
-
-  // onChangeDescription = e => {
-  //   this.setState({ description: e.target.value });
-  // };
-
-  // onChangeBody = e => {
-  //   this.setState({ body: e.target.value });
-  // };
-
   onSubmit = e => {
     e.preventDefault();
 
@@ -44,7 +28,7 @@ class NewPost extends Component {
       body: this.state.body
     };
 
-    axios.post('http://localhost:5000/posts/new', post)
+    axios.post('/posts/new', post)
       .then(res => console.log(res.data))
       .catch(err => console.log(err));
 

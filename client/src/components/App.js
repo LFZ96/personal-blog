@@ -12,7 +12,7 @@ const App = () => {
     <Router>
       <div className="container">
         <Navbar />
-        <Route path="/" exact component={PostList} />
+        <Route path="/posts" exact component={PostList} />
         <Switch>
           <Route path="/posts/new" component={NewPost} />
           <Route path="/posts/:slug/edit" component={EditPost} />
