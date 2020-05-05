@@ -12,7 +12,7 @@ class ShowPost extends Component {
   };
 
   componentDidMount() {
-    axios.get(`/posts/${this.props.match.params.slug}`)
+    axios.get(`http://localhost:5000/posts/${this.props.match.params.slug}`)
       .then(res => {
         const post = res.data;
 
@@ -28,7 +28,7 @@ class ShowPost extends Component {
   }
 
   deleteExercise = () => {
-    axios.delete(`/posts/${this.state.slug}`)
+    axios.delete(`http://localhost:5000/posts/${this.state.slug}`)
       .then(res => console.log(res))
       .catch(err => console.log(err));
   };

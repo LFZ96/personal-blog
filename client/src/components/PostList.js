@@ -21,9 +21,9 @@ class PostList extends Component {
   };
 
   componentDidMount() {
-    axios.get('/posts')
+    axios.get('http://localhost:5000/')
       .then(res => {
-        if (res.data > 0) {
+        if (res.data.length > 0) {
           this.setState({ posts: res.data });
         }
       })
@@ -35,11 +35,7 @@ class PostList extends Component {
   };
 
   render() {
-    return (
-      <>
-        { this.state.posts.map(post => <Post post={post} key={post._id} />) }
-      </>
-    );
+    return this.showPosts();
   }
 }
 

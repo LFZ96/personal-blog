@@ -1,9 +1,10 @@
 const express = require('express');
 const helmet = require('helmet');
+const cors = require('cors');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 
-// const indexRouter = require('./routes/index');
+const indexRouter = require('./routes/index');
 const postsRouter = require('./routes/posts');
 
 const app = express();
@@ -20,12 +21,13 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('connected', () => console.log('MongoDB connection established successfully.'));
 
 app.use(helmet());
+app.use(cors());
 app.use(morgan('tiny'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// app.use('/', indexRouter);
+app.use('/', indexRouter);
 app.use('/posts', postsRouter);
 
 if (process.env.NODE_ENV === 'production') {
