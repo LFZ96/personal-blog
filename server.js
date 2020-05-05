@@ -31,7 +31,7 @@ const postsRouter = require('./routes/posts');
     app.use('/posts', postsRouter);
 
     if (process.env.NODE_ENV === 'production') {
-      app.use(express.static('client/build'));
+      app.use(express.static('./client/build'));
     }
     
     // SERVER
