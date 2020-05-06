@@ -28,7 +28,7 @@ class NewPost extends Component {
       body: this.state.body
     };
 
-    axios.post('/posts/new', post)
+    axios.post('https://logan-zipkes-blog.herokuapp.com/posts/new', post)
       .then(res => console.log(res.data))
       .catch(err => console.log(err));
 

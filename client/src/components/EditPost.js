@@ -11,7 +11,7 @@ class EditPost extends Component {
   };
 
   componentDidMount() {
-    axios.get(`/posts/${this.props.match.params.slug}`)
+    axios.get(`https://logan-zipkes-blog.herokuapp.com/posts/${this.props.match.params.slug}`)
       .then(res => {
         const post = res.data;
 
@@ -46,11 +46,11 @@ class EditPost extends Component {
       body: this.state.body
     };
 
-    axios.post(`/posts/${this.props.match.params.slug}/edit`, post)
+    axios.post(`https://logan-zipkes-blog.herokuapp.com/posts/${this.props.match.params.slug}/edit`, post)
       .then(res => console.log(res))
       .catch(err => console.log(err));
     
-    window.location = '/posts';
+    window.location = 'https://logan-zipkes-blog.herokuapp.com/';
   };
 
   render() {

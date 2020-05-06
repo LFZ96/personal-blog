@@ -8,7 +8,7 @@ const Navbar = () => {
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
             {/* <Link to="/" className="nav-link">Posts</Link> */}
-            <Link to="/posts" className="nav-link">Posts</Link>
+            <Link to="/" className="nav-link">Posts</Link>
           </li>
           <li className="nav-item">
             <Link to="/posts/new" className="nav-link">New Post</Link>

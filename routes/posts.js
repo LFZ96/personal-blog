@@ -2,15 +2,15 @@ const router = require('express').Router();
 
 const Post = require('./../models/Post');
 
-router.get('/', async (req, res) => {
-  try {
-    const posts = await Post.find().sort({ createdAt: 'desc' });
+// router.get('/', async (req, res) => {
+//   try {
+//     const posts = await Post.find().sort({ createdAt: 'desc' });
     
-    res.json(posts);
-  } catch (err) {
-    res.status(500).json({ error: err });
-  }
-});
+//     res.json(posts);
+//   } catch (err) {
+//     res.status(500).json({ error: err });
+//   }
+// });
 
 router.get('/:slug', async(req, res) => {
   try {
