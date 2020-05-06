@@ -21,7 +21,7 @@ class PostList extends Component {
   };
 
   componentDidMount() {
-    axios.get('https://logan-zipkes-blog.herokuapp.com/')
+    axios.get('http://localhost:5000/')
       .then(res => {
         if (res.data.length > 0) {
           this.setState({ posts: res.data });
