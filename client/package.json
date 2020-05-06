@@ -33,6 +33,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000",
-  "homepage": "https://logan-zipkes-blog.herokuapp.com/posts"
+  "proxy": "http://localhost:5000"
 }
