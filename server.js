@@ -11,7 +11,6 @@ const postsRouter = require('./routes/posts');
 const app = express();
 
 mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/blog', {
-// mongoose.connect('mongodb+srv://loganz:Furman96@cluster0-qwemu.mongodb.net/test?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true
