@@ -7,7 +7,6 @@ const Navbar = () => {
       <div className="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
-            {/* <Link to="/" className="nav-link">Posts</Link> */}
             <Link to="/" className="nav-link">Posts</Link>
           </li>
           <li className="nav-item">

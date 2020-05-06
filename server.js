@@ -1,12 +1,9 @@
 const express = require('express');
 const helmet = require('helmet');
-const cors = require('cors');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const path = require('path');
 
-// const indexRouter = require('./routes/index');
-// const postsRouter = require('./routes/posts');
 const apiRouter = require('./routes/api');
 
 const app = express();
@@ -27,19 +24,11 @@ app.use(morgan('tiny'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// app.use('/', indexRouter);
-// app.use('/posts', postsRouter);
 app.use('/api', apiRouter);
 
-const publicPath = path.join(__dirname, 'client/build');
-
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(publicPath));
+  app.use(express.static(path.join(__dirname, 'client/build')));
 }
-
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(publicPath, 'index.html'));
-// });
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}.`));

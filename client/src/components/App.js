@@ -12,7 +12,6 @@ const App = () => {
     <Router>
       <div className="container">
         <Navbar />
-        {/* <Route path="/" exact component={PostList} /> */}
         <Route path="/" exact component={PostList} />
         <Switch>
           <Route path="/posts/new" component={NewPost} />
