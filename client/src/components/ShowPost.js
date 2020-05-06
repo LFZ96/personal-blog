@@ -12,7 +12,7 @@ class ShowPost extends Component {
   };
 
   componentDidMount() {
-    axios.get(`http://localhost:5000/posts/${this.props.match.params.slug}`)
+    axios.get(`/posts/${this.props.match.params.slug}`)
       .then(res => {
         const post = res.data;
 
@@ -28,7 +28,7 @@ class ShowPost extends Component {
   }
 
   deleteExercise = () => {
-    axios.delete(`http://localhost:5000/posts/${this.state.slug}`)
+    axios.delete(`/posts/${this.state.slug}`)
       .then(res => console.log(res))
       .catch(err => console.log(err));
   };
@@ -41,7 +41,7 @@ class ShowPost extends Component {
           <h5 className="card-subtitle text-muted mb-4">Written by {this.state.author} on {this.state.createdAt.substring(0, 10)}</h5>
           <p className="card-text">{this.state.body}</p>
           <Link to={`/posts/${this.state.slug}/edit`} className="btn btn-info mr-2">Edit</Link>
-          <a href="/" className="btn btn-danger" onClick={this.deleteExercise}>Delete</a>
+          <a href="/posts" className="btn btn-danger" onClick={this.deleteExercise}>Delete</a>
         </div>
       </div>
     );

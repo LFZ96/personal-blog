@@ -11,7 +11,7 @@ class EditPost extends Component {
   };
 
   componentDidMount() {
-    axios.get(`http://localhost:5000/posts/${this.props.match.params.slug}`)
+    axios.get(`/posts/${this.props.match.params.slug}`)
       .then(res => {
         const post = res.data;
 
@@ -46,11 +46,11 @@ class EditPost extends Component {
       body: this.state.body
     };
 
-    axios.post(`http://localhost:5000/posts/${this.props.match.params.slug}/edit`, post)
+    axios.post(`/posts/${this.props.match.params.slug}/edit`, post)
       .then(res => console.log(res))
       .catch(err => console.log(err));
     
-    window.location = '/';
+    window.location = '/posts';
   };
 
   render() {

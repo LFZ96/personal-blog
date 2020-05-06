@@ -21,7 +21,7 @@ class PostList extends Component {
   };
 
   componentDidMount() {
-    axios.get('http://localhost:5000/')
+    axios.get('/posts')
       .then(res => {
         if (res.data.length > 0) {
           this.setState({ posts: res.data });

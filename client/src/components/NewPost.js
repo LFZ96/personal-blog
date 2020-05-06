@@ -28,11 +28,11 @@ class NewPost extends Component {
       body: this.state.body
     };
 
-    axios.post('http://localhost:5000/posts/new', post)
+    axios.post('/posts/new', post)
       .then(res => console.log(res.data))
       .catch(err => console.log(err));
 
-    window.location = '/';
+    window.location = '/posts';
   };
 
   render() {
