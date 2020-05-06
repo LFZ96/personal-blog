@@ -31,7 +31,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/', indexRouter);
 app.use('/posts', postsRouter);
 
-const publicPath = path.join(__dirname, 'client/build/index.html');
+const publicPath = path.join(__dirname, 'client/build');
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(publicPath));
