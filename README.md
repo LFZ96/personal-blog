@@ -1,4 +1,4 @@
-<a href="https://logan-zipkes-blog.herokuapp.com/" target="_blank"><img src="personal-blog-gif2.gif" alt="Gif of Blog"></a>
+<a href="https://logan-zipkes-blog.herokuapp.com/" target="_blank"><img src="personal-blog-gif.gif" alt="Gif of Blog"></a>
 
 # Logan Zipkes' Blog
 
