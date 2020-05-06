@@ -5,8 +5,9 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const path = require('path');
 
-const indexRouter = require('./routes/index');
-const postsRouter = require('./routes/posts');
+// const indexRouter = require('./routes/index');
+// const postsRouter = require('./routes/posts');
+const apiRouter = require('./routes/api');
 
 const app = express();
 
@@ -21,14 +22,14 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('connected', () => console.log('MongoDB connection established successfully.'));
 
 app.use(helmet());
-app.use(cors());
 app.use(morgan('tiny'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/', indexRouter);
-app.use('/posts', postsRouter);
+// app.use('/', indexRouter);
+// app.use('/posts', postsRouter);
+app.use('/api', apiRouter);
 
 const publicPath = path.join(__dirname, 'client/build');
 
