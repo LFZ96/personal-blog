@@ -20,3 +20,7 @@ I graduated from college back in December, and since then I have focused my time
   - [ ] Add 'LZ' logo to navbar next to 'posts'
   - [ ] Add darker colors from personal site to the background
   - [ ] Change navbar buttons to appear more like personal site's
+- [ ] Add pagination to the post list page where only 10 posts per page are allowed
+- [x] Add markdown to posts' body to allow for a richer experience
+  - [x] Update Post model to include sanitized HTML for markdown
+  - [x] Update ShowPost React component to show sanitized HTML instead of body
