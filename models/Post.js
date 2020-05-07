@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
+const marked = require('marked');
 const slugify = require('slugify');
+const createDOMPurify = require('dompurify');
+const { JSDOM } = require('jsdom');
 
 const Schema = mongoose.Schema;
+const dompurify = createDOMPurify(new JSDOM().window);
 
 const PostSchema = new Schema({
   author: {
@@ -26,12 +30,20 @@ const PostSchema = new Schema({
     type: String,
     required: true,
     unique: true
+  },
+  sanitizedHTML: {
+    type: String,
+    required: true
   }
 }, { timestamps: true });
 
 PostSchema.pre('validate', function(next) {
   if (this.title) {
     this.slug = slugify(this.title, { lower: true, strict: true });
+  }
+
+  if (this.body) {
+    this.sanitizedHTML = dompurify.sanitize(marked(this.body));
   }
 
   next();

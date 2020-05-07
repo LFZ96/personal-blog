@@ -8,7 +8,8 @@ class ShowPost extends Component {
       author: '',
       createdAt: '',
       body: '',
-      slug: ''
+      slug: '',
+      sanitizedHTML: ''
   };
 
   componentDidMount() {
@@ -21,7 +22,8 @@ class ShowPost extends Component {
           author: post.author,
           createdAt: post.createdAt,
           body: post.body,
-          slug: post.slug
+          slug: post.slug,
+          sanitizedHTML: post.sanitizedHTML
         });
       })
       .catch(err => console.log(err));
@@ -39,7 +41,7 @@ class ShowPost extends Component {
         <h2 className="card-header">{this.state.title}</h2>
         <div className="card-body">
           <h5 className="card-subtitle text-muted mb-4">Written by {this.state.author} on {this.state.createdAt.substring(0, 10)}</h5>
-          <p className="card-text">{this.state.body}</p>
+          <p className="card-text" dangerouslySetInnerHTML={{__html: this.state.sanitizedHTML}}></p>
           <Link to={`/posts/${this.state.slug}/edit`} className="btn btn-info mr-2">Edit</Link>
           <a href="/" className="btn btn-danger" onClick={this.deleteExercise}>Delete</a>
         </div>
