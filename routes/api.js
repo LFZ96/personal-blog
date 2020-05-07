@@ -37,13 +37,9 @@ router.post('/new', async (req, res) => {
   } catch (err) {
     res.status(500).json({ success: false, error: err });
   }
-
-  // newPost.save()
-  // .then(post => res.status(200).json({ success: true, postId: post._id }))
-  // .catch(err => res.status(500).json({ success: false, error: err }));
 });
 
-router.post('/:slug/edit', (req, res) => {
+router.post('/:slug/edit', async (req, res) => {
   Post.findOne({ slug: req.params.slug })
     .then(post => {
       post.title = req.body.title;
@@ -57,10 +53,14 @@ router.post('/:slug/edit', (req, res) => {
     .catch(err => res.status(400).json({ success: false, error: err }));
 });
 
-router.delete('/:slug', (req, res) => {
-  Post.findOneAndDelete({ slug: req.params.slug })
-    .then(post => res.json({ success: true }))
-    .catch(err => res.status(500).json({ success: false, error: err }));
-})
+router.delete('/:slug', async (req, res) => {
+  try {
+    await Post.findOneAndDelete({ slug: req.params.slug });
+
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err });
+  }
+});
 
 module.exports = router;
