@@ -41,17 +41,20 @@ router.post('/new', async (req, res) => {
 });
 
 router.post('/:slug/edit', async (req, res) => {
-  Post.findOne({ slug: req.params.slug })
-    .then(post => {
-      post.title = req.body.title;
-      post.description = req.body.description;
-      post.body = req.body.body;
+  const { title, body, description } = req.body;
+  try {
+    const post = await Post.findOne({ slug: req.params.slug });
 
-      post.save()
-        .then(() => res.json({ success: true, }))
-        .catch(err => res.status(400).json({ success: false, error: err }));
-    })
-    .catch(err => res.status(400).json({ success: false, error: err }));
+    post.title = title;
+    post.description = description;
+    post.body = body;
+  
+    await post.save();
+  
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
 });
 
 router.delete('/:slug', async (req, res) => {

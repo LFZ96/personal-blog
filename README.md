@@ -8,9 +8,9 @@ I graduated from college back in December, and since then I have focused my time
 
 ## Things that still need work...
 
-- [ ] Figure out how to use async/await for api router's edit and delete requests
+- [x] Figure out how to use async/await for api router's edit and delete requests
   - [x] Use async/await with delete post
-  - [ ] Use async/await with edit post
+  - [x] Use async/await with edit post
 - [ ] Add authentication/authorization for private user functionality
   - [ ] Create a Login React component that's accessible from navbar
   - [ ] Validate user's email and password inputs in database
