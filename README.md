@@ -12,13 +12,15 @@ I graduated from college back in December, and since then I have focused my time
   - [x] Use async/await with delete post
   - [x] Use async/await with edit post
 - [ ] Add authentication/authorization for private user functionality
-  - [ ] Create a Login React component that's accessible from navbar
+  - [x] Create a Login React component that's accessible from navbar
+  - [x] Create a Registration React component that's accessible from the Login component
+    - [ ] Implement error handling for users
   - [ ] Validate user's email and password inputs in database
   - [ ] Implement sessions and cookies for authorization
   - [ ] Allow registered users to create posts, edit their own posts, and delete their own posts
   - [ ] Allow users who have not registered to only read others' posts
 - [ ] Add custom CSS to the Bootstrap styles that match more closely to my own personal site
-  - [ ] Add 'LZ' logo to favicon
+  - [x] Add 'LZ' logo to favicon
   - [ ] Add 'LZ' logo to navbar next to 'posts'
   - [ ] Add darker colors from personal site to the background
   - [ ] Change navbar buttons to appear more like personal site's

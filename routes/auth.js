@@ -5,22 +5,25 @@ const { validatePassword, generatePassword } = require('./../util/helper');
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
-
   try {
     const user = await User.findOne({ email });
 
     if (!user) {
+      console.log('User login unsuccessful: Incorrect email');
       return res.status(400).json({ success: false, message: 'Email or password incorrect'});
     }
   
     const isValid = validatePassword(password, user.password);
-  
+
     if (isValid) {
+      console.log('User login successful');
       res.status(200).json({ success: true });
     } else {
+      console.log('User login unsuccessful: Incorrect password');
       res.status(400).json({ success: false, message: 'Email or password incorrect' });
     }
   } catch (err) {
+    console.log('Oops! Something went wrong!');
     res.status(500).json({ error: err.message });
   }
 });
@@ -32,6 +35,7 @@ router.post('/register', async (req, res) => {
     const invalidEmail = await User.findOne({ email });
 
     if (invalidEmail) {
+      console.log('That email already exists');
       return res.status(400).json({ success: false, message: 'Email already in use' });
     }
 
@@ -45,8 +49,10 @@ router.post('/register', async (req, res) => {
     
     const user = await newUser.save();
 
+    console.log('New user registered successfully')
     res.status(200).json({ success: true, userId: user._id });
   } catch (err) {
+    console.log('Registration unsuccessful');
     res.status(500).json({ success: false, message: err.message });
   }
 });

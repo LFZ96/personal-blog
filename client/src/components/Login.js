@@ -21,10 +21,13 @@ class Login extends Component {
     };
 
     axios.post('/auth/login', user)
-      .then(() => console.log('User sent'))
+      .then(res => {
+        console.log(res);
+        if (res.data.success === true) {
+          window.location = '/'
+        }
+      })
       .catch(err => console.log(err));
-
-    window.location = '/';
   };
 
   render() {

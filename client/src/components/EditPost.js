@@ -54,6 +54,8 @@ class EditPost extends Component {
   };
 
   render() {
+    const currentDate = new Date();
+    
     return (
       <div className="card mx-auto w-75">
         <div className="card-body">
@@ -72,6 +74,8 @@ class EditPost extends Component {
                 required
               />
             </div>
+
+            <h5 className="card-subtitle text-muted mb-4">Written by {'Logan Zipkes'} on {currentDate.toLocaleDateString()}</h5>
 
             <div className="form-group">
               <label htmlFor="description">Description</label>

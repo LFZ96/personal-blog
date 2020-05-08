@@ -3,6 +3,8 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const path = require('path');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
 const authRouter = require('./routes/auth');
 const apiRouter = require('./routes/api');
@@ -24,6 +26,23 @@ app.use(morgan('tiny'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+app.use(session({
+  name: process.env.SESS_NAME || 'sid',
+  secret: process.env.SESS_SECRET || 'secret',
+  saveUninitialized: false,
+  resave: false,
+  store: new MongoStore({
+    mongooseConnection: db,
+    collection: 'session',
+    ttl: parseInt(process.env.SESS_LIFETIME) / 1000
+  }),
+  cookie: {
+    sameSite: true,
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: parseInt(process.env.SESS_LIFETIME)
+  }
+}));
 
 app.use('/auth', authRouter);
 app.use('/api', apiRouter);

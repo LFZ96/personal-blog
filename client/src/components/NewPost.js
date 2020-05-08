@@ -36,13 +36,14 @@ class NewPost extends Component {
   };
 
   render() {
+    const currentDate = new Date();
     return (
       <div className="card mx-auto w-75">
         <div className="card-body">
           <h1 className="card-title text-center">New Post</h1>
 
           <form onSubmit={this.onSubmit} autoComplete="off">
-            <div className="form-group">
+            <div className="form-group mb-4">
               <label htmlFor="title">Title</label>
               <input
                 type="text"
@@ -54,6 +55,8 @@ class NewPost extends Component {
                 required
               />
             </div>
+
+            <h5 className="card-subtitle text-muted mb-4">Written by {'Logan Zipkes'} on {currentDate.toLocaleDateString()}</h5>
 
             <div className="form-group">
               <label htmlFor="description">Description</label>

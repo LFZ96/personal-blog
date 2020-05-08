@@ -15,6 +15,15 @@ class Registration extends Component {
 
   handleChangePassword = e => this.setState({ password: e.target.value });
 
+  togglePasswordVisibility = () => {
+    let passInput = document.getElementById('password');
+    if (passInput.type === 'password') {
+      passInput.type = 'text';
+    } else {
+      passInput.type = 'password';
+    }
+  };
+
   handleSubmit = e => {
     e.preventDefault();
 
@@ -25,10 +34,16 @@ class Registration extends Component {
     };
 
     axios.post('/auth/register', user)
-      .then(() => console.log('User sent'))
+      .then(res => {
+        console.log(res.data);
+        if (res.data.success === true) {
+          window.location = '/users/login'
+        }
+        // } else {
+        //   throw new Error('Registration unsuccessful');
+        // }
+      })
       .catch(err => console.log(err));
-
-    window.location = '/users/login';
   };
 
   render() {
@@ -72,11 +87,6 @@ class Registration extends Component {
                 id="password"
                 name="password"
               />
-              {/* <small
-                id="passwordHelp"
-                className="form-text text-danger">
-                Password must contain more than 8 characters, a capital (uppercase) letter, a digit, and one special character
-              </small> */}
             </div>
 
             <div className="form-check mb-4">
@@ -84,6 +94,7 @@ class Registration extends Component {
                 type="checkbox"
                 className="form-check-input"
                 id="togglePasswordVisibility"
+                onClick={this.togglePasswordVisibility}
               />
               <label htmlFor="togglePasswordVisibility">Show password</label>
             </div>
