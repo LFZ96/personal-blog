@@ -27,7 +27,6 @@ class PostList extends Component {
   componentDidMount() {
     axios.get(`/api/posts?page=${this.state.currentPage}`)
       .then(res => {
-        console.log(res.data);
         if (res.data.results.length > 0) {
           this.setState({ totalPosts: res.data.totalPosts, posts: res.data.results });
         }

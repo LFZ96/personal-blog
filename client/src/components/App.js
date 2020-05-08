@@ -6,6 +6,8 @@ import PostList from './PostList';
 import NewPost from './NewPost';
 import ShowPost from './ShowPost';
 import EditPost from './EditPost';
+import Login from './Login';
+import Registration from './Registration';
 
 const App = () => {
   return (
@@ -18,6 +20,8 @@ const App = () => {
           <Route path="/posts/:slug/edit" component={EditPost} />
           <Route path="/posts/:slug" component={ShowPost} />
         </Switch>
+        <Route path="/users/login" component={Login} />
+        <Route path="/users/register" component={Registration} />
       </div>
     </Router>
   );

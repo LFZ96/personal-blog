@@ -14,6 +14,14 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
+
+      <div className="navbar-collapse collapse w-100 order-2 dual-collapse2">
+        <ul className="navbar-nav ml-auto">
+          <li className="nav-item">
+            <Link to="/users/login" className="nav-link">Login</Link>
+          </li>
+        </ul>
+      </div>
     </nav>
   );
 };
