@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const path = require('path');
 
+const authRouter = require('./routes/auth');
 const apiRouter = require('./routes/api');
 
 const app = express();
@@ -24,6 +25,7 @@ app.use(morgan('tiny'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use('/auth', authRouter);
 app.use('/api', apiRouter);
 
 if (process.env.NODE_ENV === 'production') {
