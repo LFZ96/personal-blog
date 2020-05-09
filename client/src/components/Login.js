@@ -22,7 +22,7 @@ class Login extends Component {
 
     axios.post('/auth/login', user)
       .then(res => {
-        console.log(res);
+        console.log(res.data);
         if (res.data.success === true) {
           window.location = '/'
         }

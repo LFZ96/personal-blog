@@ -9,15 +9,22 @@ router.post('/login', async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      console.log('User login unsuccessful: Incorrect email');
+      console.log('User login unsuccessful: Email not found');
       return res.status(400).json({ success: false, message: 'Email or password incorrect'});
     }
   
     const isValid = validatePassword(password, user.password);
 
     if (isValid) {
+      const sessionUser = {
+        userId: user._id,
+        username: user.username
+      };
+
+      req.session.user = sessionUser;
+
       console.log('User login successful');
-      res.status(200).json({ success: true });
+      res.status(200).json({ success: true, user: sessionUser });
     } else {
       console.log('User login unsuccessful: Incorrect password');
       res.status(400).json({ success: false, message: 'Email or password incorrect' });
@@ -54,6 +61,13 @@ router.post('/register', async (req, res) => {
   } catch (err) {
     console.log('Registration unsuccessful');
     res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.delete('/logout', (req, res) => {
+  console.log('Destroying session');
+  if (req.session) {
+    req.session.destroy();
   }
 });
 

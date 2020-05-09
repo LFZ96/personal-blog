@@ -15,8 +15,9 @@ I graduated from college back in December, and since then I have focused my time
   - [x] Create a Login React component that's accessible from navbar
   - [x] Create a Registration React component that's accessible from the Login component
     - [ ] Implement error handling for users
-  - [ ] Validate user's email and password inputs in database
+  - [x] Validate user's email and password inputs in database
   - [ ] Implement sessions and cookies for authorization
+    -[ ] Cancel cookie on clientside
   - [ ] Allow registered users to create posts, edit their own posts, and delete their own posts
   - [ ] Allow users who have not registered to only read others' posts
 - [ ] Add custom CSS to the Bootstrap styles that match more closely to my own personal site

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Navbar = () => {
   return (
@@ -20,6 +21,14 @@ const Navbar = () => {
           <li className="nav-item">
             <Link to="/users/login" className="nav-link">Login</Link>
           </li>
+
+          {/* <li className="nav-item">
+            <Link to="/" className="nav-link" onClick={() => {
+              axios.delete('/auth/logout')
+                .then(res => console.log('Logout successful'))
+                .catch(err => console.log(err));
+            }}>Logout</Link>
+          </li> */}
         </ul>
       </div>
     </nav>
