@@ -4,12 +4,17 @@ import axios from 'axios';
 
 class Registration extends Component {
   state = {
-    username: '',
+    // username: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: ''
   };
 
-  handleChangeUsername = e => this.setState({ username: e.target.value });
+  // handleChangeUsername = e => this.setState({ username: e.target.value });
+  handleChangeFirstName = e => this.setState({ firstName: e.target.value });
+
+  handleChangeLastName = e => this.setState({ lastName: e.target.value });
 
   handleChangeEmail = e => this.setState({ email: e.target.value });
 
@@ -28,7 +33,9 @@ class Registration extends Component {
     e.preventDefault();
 
     const user = {
-      username: this.state.username,
+      // username: this.state.username,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
       email: this.state.email,
       password: this.state.password
     };
@@ -50,10 +57,10 @@ class Registration extends Component {
     return (
       <div className="card mx-auto w-50">
         <div className="card-body">
-          <h1 className="card-title text-center">Register</h1>
+          <h1 className="card-title text-center mb-4">Register</h1>
 
-          <form onSubmit={this.handleSubmit} autoComplete="off">
-            <div className="form-group">
+          <form autoComplete="off" onSubmit={this.handleSubmit}>
+            {/* <div className="form-group">
               <label htmlFor="username">Username</label>
               <input
                 type="text"
@@ -63,6 +70,31 @@ class Registration extends Component {
                 id="username"
                 name="username"
               />
+            </div> */}
+            <div className="form-row">
+              <div className="form-group col-md-6">
+                <label htmlFor="first-name">First Name</label>
+                <input
+                  type="text"
+                  value={this.state.firstName}
+                  onChange={this.handleChangeFirstName}
+                  className="form-control"
+                  id="first-name"
+                  name="first"
+                />
+              </div>
+
+              <div className="form-group col-md-6">
+                <label htmlFor="last-name">Last Name</label>
+                <input
+                  type="text"
+                  value={this.state.lastName}
+                  onChange={this.handleChangeLastName}
+                  className="form-control"
+                  id="last-name"
+                  name="last"
+                />
+              </div>
             </div>
 
             <div className="form-group">
@@ -100,7 +132,7 @@ class Registration extends Component {
             </div>
 
             <button type="submit" className="btn btn-primary mr-4">Register</button>
-            <span>Already have an account? <Link to="/users/login" className="text-primary">Login here</Link>.</span>
+            <span><Link to="/users/login" className="text-primary">Already have an account? Login here</Link>.</span>
           </form>
         </div>
       </div>

@@ -36,7 +36,7 @@ router.post('/login', async (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-  const { username, email, password } = req.body;
+  const { firstName, lastName, email, password } = req.body;
 
   try {
     const invalidEmail = await User.findOne({ email });
@@ -49,7 +49,10 @@ router.post('/register', async (req, res) => {
     const hash = generatePassword(password);
 
     const newUser = new User({
-      username,
+      name: {
+        first: firstName,
+        last: lastName
+      },
       email,
       password: hash
     });

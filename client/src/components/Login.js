@@ -61,7 +61,7 @@ class Login extends Component {
             </div>
 
             <button type="submit" className="btn btn-primary mr-4">Login</button>
-            <span>Don't have an account? <Link to="/users/register" className="text-primary">Register here</Link>.</span>
+            <span><Link to="/users/register" className="text-primary">Don't have an account? Register here</Link>.</span>
           </form>
         </div>
       </div>
