@@ -1,56 +1,66 @@
-import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect
-} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-import { AuthNavbar, UnauthNavbar } from './Navbar';
-import PostList from './PostList';
-import NewPost from './NewPost';
-import ShowPost from './ShowPost';
-import EditPost from './EditPost';
-import Login from './Login';
-import Registration from './Registration';
+import Navbar from './Navbar';
+import Routes from './../routes/Routes';
+import AuthContext from './../utils/AuthContext';
+import { isAuthenticated } from './../utils/requestsHelper';
 
-// const auth = {
-//   isAuthenticated: false,
-//   authenticate() {
-//     this.isAuthenticated = true;
-//   },
-//   signout(cb) {
-//     this.isAuthenticated = false
+// class App extends React.Component {
+//   state = {
+//     auth: false,
+//     user: null
+//   };
+
+//   componentDidMount() {
+//     axios.get('/auth/isAuthenticated')
+//       .then(res => {
+//         if (res.data.auth) {
+//           this.setState({ auth: true, user: res.data.user });
+//         }
+//       })
+//       .catch(err => console.log(err));
 //   }
-// };
 
-// const PrivateRoute = ({ component: Component, ...rest }) => {
-//   <Route {...rest} render={props => (
-//     auth.isAuthenticated === true
-//     ? <Component {...props} />
-//     : <Redirect to="/users/login" />
-//   )} />
-// };
+//   render() {
+//     return (
+//       <div className="container">
+//         <AuthContext.Provider value={{auth: this.state.auth, user: this.state.user}}>
+//           <Router>
+//             <Navbar />
+//             <Routes />
+//           </Router>
+//         </AuthContext.Provider>
+//       </div>
+//     );
+//   }
+// }
 
-const App = () => {
+export default function App() {
+  const [auth, setAuth] = useState(false);
+  const [user, setUser] = useState(null);
+
+  const readSession = async () => {
+    const isAuthenticatedResult = await isAuthenticated();
+
+    if (isAuthenticatedResult.data.auth) {
+      setAuth(true);
+      setUser(isAuthenticatedResult.data.user);
+    }
+  };
+
+  useEffect(() => {
+    readSession();
+  }, []);
+
   return (
-    <Router>
-      <div className="container">
-        {/* <Navbar /> */}
-        <AuthNavbar />
-        <Route path="/" exact component={PostList} />
-        <Switch>
-          <Route path="/posts/new" component={NewPost} />
-          <Route path="/posts/:slug/edit" component={EditPost} />
-          {/* <PrivateRoute path="/posts/new" component={NewPost} />
-          <PrivateRoute path="/posts/:slug/edit" component={EditPost} /> */}
-          <Route path="/posts/:slug" component={ShowPost} />
-        </Switch>
-        <Route path="/users/login" component={Login} />
-        <Route path="/users/register" component={Registration} />
-      </div>
-    </Router>
+    <div className="container">
+      <AuthContext.Provider value={{ auth, setAuth, user, setUser }}>
+        <Router>
+          <Navbar />
+          <Routes />
+        </Router>
+      </AuthContext.Provider>
+    </div>
   );
-};
-
-export default App;
+}

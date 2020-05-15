@@ -1,63 +1,125 @@
-import React, { Component } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 
-class ShowPost extends Component {
-  state = {
-    title: '',
-      author: '',
-      createdAt: '',
-      body: '',
-      slug: '',
-      sanitizedHTML: ''
+import AuthContext from './../utils/AuthContext';
+import { getPost, deletePost, formatDate } from './../utils/requestsHelper';
+
+export default function ShowPost(props) {
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
+  const [createdAt, setCreatedAt] = useState('');
+  // const [body, setBody] = useState('');
+  const [slug, setSlug] = useState('');
+  const [sanitizedHTML, setSanitizedHTML] = useState('');
+
+  const [postAuthorId, setPostAuthorId] = useState('');
+
+  const authApi = useContext(AuthContext);
+
+  const renderPost = async () => {
+    const getPostResult = await getPost(props.match.params.slug);
+    setPostAuthorId(getPostResult.data.author);
+    const post = getPostResult.data;
+
+    setTitle(post.title);
+    setAuthor(post.author);
+    setCreatedAt(post.createdAt);
+    // setBody(post.body);
+    setSlug(post.slug);
+    setSanitizedHTML(post.sanitizedHTML);
   };
 
-  componentDidMount() {
-    axios.get(`/api/${this.props.match.params.slug}`)
-      .then(res => {
-        const post = res.data;
+  useEffect(() => {
+    renderPost();
+  }, []);
 
-        this.setState({
-          title: post.title,
-          author: post.author,
-          createdAt: post.createdAt,
-          body: post.body,
-          slug: post.slug,
-          sanitizedHTML: post.sanitizedHTML
-        });
-      })
-      .catch(err => console.log(err));
-  }
-
-  deleteExercise = () => {
-    axios.delete(`/api/${this.state.slug}`)
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+  const handleDeletion = async () => {
+    await deletePost(slug);
   };
 
-  isAuth = () => {
-    if (this.props.authenticated) {
-      return (
-        <>
-          <Link to={`/posts/${this.state.slug}/edit`} className="btn btn-info mr-2">Edit</Link>
-          <a href="/" className="btn btn-danger" onClick={this.deleteExercise}>Delete</a>
-        </>
-      );
+  const renderButtons = () => {
+    if (authApi.auth) {
+      if (authApi.user.userId === postAuthorId) {
+        return (
+          <>
+            <Link to={`/posts/${slug}/edit`} className="btn btn-info mr-2">Edit</Link>
+            <a href="/" className="btn btn-danger" onClick={handleDeletion}>Delete</a>
+          </>
+        );
+      }
     }
   };
 
-  render() {
-    return (
-      <div className="card mx-auto w-75">
-        <h2 className="card-header">{this.state.title}</h2>
-        <div className="card-body">
-          <h5 className="card-subtitle text-muted mb-4">Written by {this.state.author} on {this.state.createdAt.substring(0, 10)}</h5>
-          <p className="card-text" dangerouslySetInnerHTML={{__html: this.state.sanitizedHTML}}></p>
-          {() => this.isAuth()}
-        </div>
+  return (
+    <div className="card mx-auto w-75">
+      <h2 className="card-header">{title}</h2>
+      <div className="card-body">
+        <h5 className="card-subtitle text-muted mb-4">By {author} on {formatDate(createdAt)}</h5>
+        <p className="card-text" dangerouslySetInnerHTML={{__html: sanitizedHTML}}></p>
+        {renderButtons()}
       </div>
-    );
-  }
+    </div>
+  );
 }
 
-export default ShowPost;
+// class ShowPost extends Component {
+//   state = {
+//     title: '',
+//       author: '',
+//       createdAt: '',
+//       body: '',
+//       slug: '',
+//       sanitizedHTML: ''
+//   };
+
+//   componentDidMount() {
+//     axios.get(`/api/${this.props.match.params.slug}`)
+//       .then(res => {
+//         const post = res.data;
+
+//         this.setState({
+//           title: post.title,
+//           author: post.author,
+//           createdAt: post.createdAt,
+//           body: post.body,
+//           slug: post.slug,
+//           sanitizedHTML: post.sanitizedHTML
+//         });
+//       })
+//       .catch(err => console.log(err));
+//   }
+
+//   handleDeletion = () => {
+//     axios.delete(`/api/${this.state.slug}`)
+//       .then(res => console.log(res))
+//       .catch(err => console.log(err));
+//   };
+
+//   renderButtons = () => {
+//     const authApi = useContext(AuthContext);
+
+//     if (authApi.auth) {
+//       return (
+//         <>
+//           <Link to={`/posts/${this.state.slug}/edit`} className="btn btn-info mr-2">Edit</Link>
+//           <a href="/" className="btn btn-danger" onClick={this.handleDeletion}>Delete</a>
+//         </>
+//       );
+//     }
+//   };
+
+//   render() {
+//     return (
+//       <div className="card mx-auto w-75">
+//         <h2 className="card-header">{this.state.title}</h2>
+//         <div className="card-body">
+//           <h5 className="card-subtitle text-muted mb-4">Written by {this.state.author} on {this.state.createdAt.substring(0, 10)}</h5>
+//           <p className="card-text" dangerouslySetInnerHTML={{__html: this.state.sanitizedHTML}}></p>
+//           {this.renderButtons()}
+//         </div>
+//       </div>
+//     );
+//   }
+// }
+
+// export default ShowPost;

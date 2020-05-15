@@ -9,10 +9,10 @@ const dompurify = createDOMPurify(new JSDOM().window);
 
 const PostSchema = new Schema({
   author: {
-    // type: Schema.Types.ObjectId,
-    // ref: 'User'
-    type: String,
-    required: true
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+    // type: String,
+    // required: true
   },
   title: {
     type: String,

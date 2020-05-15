@@ -1,6 +1,14 @@
 const router = require('express').Router();
 
 const Post = require('./../models/Post');
+const User = require('./../models/User');
+
+router.post('/user', async (req, res) => {
+  const { id } = req.body;
+  const user = await User.findOne({ id});
+
+  return res.json({ user: user });
+});
 
 router.get('/posts', paginatedResults(Post), (req, res) => {
   // try {

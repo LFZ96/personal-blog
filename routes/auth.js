@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const User = require('./../models/User');
-const { validatePassword, generatePassword } = require('./../util/helper');
+const { validatePassword, generatePassword, validateRegistration } = require('./../util/helper');
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
@@ -18,7 +18,7 @@ router.post('/login', async (req, res) => {
     if (isValid) {
       const sessionUser = {
         userId: user._id,
-        username: user.username
+        username: user.fullName
       };
 
       req.session.user = sessionUser;
@@ -38,7 +38,14 @@ router.post('/login', async (req, res) => {
 router.post('/register', async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
 
+  // Validate user's registration inputs
+  const { error } = validateRegistration({ firstName, lastName, email, password });
+  if (error) {
+    return res.status(400).json({ success: false, message: error.details[0].message })
+  }
+
   try {
+    // Check to see if user's email input already exists in database
     const invalidEmail = await User.findOne({ email });
 
     if (invalidEmail) {
@@ -46,8 +53,10 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ success: false, message: 'Email already in use' });
     }
 
+    // Hash the user's password input
     const hash = generatePassword(password);
 
+    // Create new user from user's valid registration inputs
     const newUser = new User({
       name: {
         first: firstName,
@@ -57,6 +66,7 @@ router.post('/register', async (req, res) => {
       password: hash
     });
     
+    // Save the user to the database
     const user = await newUser.save();
 
     console.log('New user registered successfully')
@@ -67,10 +77,19 @@ router.post('/register', async (req, res) => {
   }
 });
 
-router.delete('/logout', (req, res) => {
-  console.log('Destroying session');
-  if (req.session) {
+router.get('/isAuthenticated', (req, res) => {
+  if (req.session.user) {
+    return res.json({ auth: true, user: req.session.user });
+  }
+
+  return res.json({ auth: false });
+});
+
+router.get('/logout', (req, res) => {
+  if (req.session.user) {
+    console.log('Destroying session');
     req.session.destroy();
+    res.json({ auth: false });
   }
 });
 

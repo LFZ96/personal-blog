@@ -1,15 +1,16 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 
 import Pagination from './Pagination';
+import { updatePage, getPostList, formatDate } from './../utils/requestsHelper';
 
-const Post = props => {
+function Post(props) {
   return (
     <div className="card mx-auto w-75 mb-4">
       <div className="card-body">
         <h2 className="card-title">{props.post.title}</h2>
-        <h6 className="card-subtitle text-muted mb-2">Written by {props.post.author} on {props.post.createdAt.substring(0, 10)}</h6>
+        {/* <h6 className="card-subtitle text-muted mb-2">Written by {props.post.author} on {props.post.createdAt.substring(0, 10)}</h6> */}
+        <h6 className="card-subtitle mb-2">By {props.post.author} on {formatDate(props.post.createdAt)}</h6>
         <p className="card-text">{props.post.description}</p>
         <Link to={`/posts/${props.post.slug}`} className="btn btn-primary">Read More</Link>
       </div>
@@ -17,44 +18,118 @@ const Post = props => {
   );
 };
 
-class PostList extends Component {
-  state = {
-    posts: [],
-    currentPage: 1,
-    totalPosts: 0
+export default function PostList() {
+  const [posts, setPosts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPosts, setTotalPosts] = useState(0);
+
+  const numOfPages = Math.ceil(totalPosts / 4);
+
+  const renderPostList = async () => {
+    const postListResult = await getPostList(currentPage);
+
+    const blogPosts = postListResult.data.results;
+
+    // const blogPostAuthors = await getAuthors(blogPosts);
+    // console.log(blogPostAuthors);
+
+    // const functionWithPromise = item => {
+    //   return Promise.resolve(item);
+    // };
+    
+    // const anAsyncFunction = async item => {
+    //   return functionWithPromise(item);
+    // };
+    
+    // const getData = async () => {
+    //   return Promise.all(blogPosts.map(post => getUser(post.author)));
+    // };
+    
+    // let blogPostAuthors;
+    // Promise.all(blogPosts.map(post => getUser(post.author))).then(data => {
+    //   const auths = data.map(u => u.data);
+    //   blogPostAuthors = auths.map(u => u.user);
+    //   console.log(blogPostAuthors);
+    // });
+
+    // console.log(blogPostAuthors);
+
+    // const blogPostAuthors = await getAuthors(blogPosts);
+
+    if (blogPosts.length > 0) {
+      setTotalPosts(blogPosts.totalPosts);
+      setPosts(blogPosts);
+    }
   };
 
-  componentDidMount() {
-    axios.get(`/api/posts?page=${this.state.currentPage}`)
-      .then(res => {
-        if (res.data.results.length > 0) {
-          this.setState({ totalPosts: res.data.totalPosts, posts: res.data.results });
-        }
-      })
-      .catch(err => console.log(err));
-  }
+  useEffect(() => {
+    renderPostList();
+  }, []);
+  
+  const updatePageHandler = async pageNum => {
+    const updatePageResult = await updatePage(pageNum);
 
-  updatePage = pageNum => {
-    axios.get(`/api/posts?page=${pageNum}`)
-      .then(res => {
-        if (res.data.results.length > 0) {
-          this.setState({ posts: res.data.results, currentPage: pageNum });
-        }
-      })
-      .catch(err => console.log(err));
+    if (updatePageResult.data.results.length > 0) {
+      setPosts(updatePageResult.data.results);
+      setCurrentPage(pageNum);
+    }
   };
 
-  render() {
-    const numOfPages = Math.ceil(this.state.totalPosts / 4);
+  const handlePostList = () => {
+    // return posts.blogPosts.map((post, i) => (<Post post={post} author={posts.blogPostAuthors[i]} key={post._id} />));
+    return posts.map(post => (<Post post={post} key={post._id} />));
+  };
 
-    return (
-      <>
-        { this.state.posts.map(post => <Post post={post} key={post._id} />) }
+  const handlePagination = () => {
+    return totalPosts > 4 ? <Pagination pages={numOfPages} updatePage={updatePageHandler} currentPage={currentPage} /> : '';
+  };
 
-        { this.state.totalPosts > 4 ? <Pagination pages={numOfPages} updatePage={this.updatePage} currentPage={this.state.currentPage} /> : '' }
-      </>
-    );
-  }
+  return (
+    <>
+      {handlePostList()}
+      {handlePagination()}
+    </>
+  );
 }
 
-export default PostList;
+// class PostList extends Component {
+//   state = {
+//     posts: [],
+//     currentPage: 1,
+//     totalPosts: 0
+//   };
+
+//   componentDidMount() {
+//     axios.get(`/api/posts?page=${this.state.currentPage}`)
+//       .then(res => {
+//         if (res.data.results.length > 0) {
+//           this.setState({ totalPosts: res.data.totalPosts, posts: res.data.results });
+//         }
+//       })
+//       .catch(err => console.log(err));
+//   }
+
+//   updatePage = pageNum => {
+//     axios.get(`/api/posts?page=${pageNum}`)
+//       .then(res => {
+//         if (res.data.results.length > 0) {
+//           this.setState({ posts: res.data.results, currentPage: pageNum });
+//         }
+//       })
+//       .catch(err => console.log(err));
+//   };
+
+//   render() {
+//     const numOfPages = Math.ceil(this.state.totalPosts / 4);
+
+//     return (
+//       <>
+//         { this.state.posts.map(post => <Post post={post} key={post._id} />) }
+
+//         { this.state.totalPosts > 4 ? <Pagination pages={numOfPages} updatePage={this.updatePage} currentPage={this.state.currentPage} /> : '' }
+//       </>
+//     );
+//   }
+// }
+
+// export default PostList;
