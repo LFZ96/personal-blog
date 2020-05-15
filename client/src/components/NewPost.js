@@ -38,7 +38,7 @@ export default function NewPost() {
   };
 
   return (
-    <div className="card mx-auto w-75">
+    <div className="card mx-auto w-50">
       <div className="card-body">
         <h1 className="card-title text-center">New Post</h1>
 

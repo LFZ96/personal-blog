@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import Pagination from './Pagination';
-import { updatePage, getPostList, formatDate } from './../utils/requestsHelper';
+import { updatePage, getPostList, formatDate, getPost } from './../utils/requestsHelper';
 
 function Post(props) {
   return (
-    <div className="card mx-auto w-75 mb-4">
+    <div className="card mx-auto w-50 mb-4">
       <div className="card-body">
         <h2 className="card-title">{props.post.title}</h2>
         {/* <h6 className="card-subtitle text-muted mb-2">Written by {props.post.author} on {props.post.createdAt.substring(0, 10)}</h6> */}
@@ -22,43 +22,20 @@ export default function PostList() {
   const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPosts, setTotalPosts] = useState(0);
-
-  const numOfPages = Math.ceil(totalPosts / 4);
+  const [numPages, setNumPages] = useState(0);
 
   const renderPostList = async () => {
     const postListResult = await getPostList(currentPage);
 
-    const blogPosts = postListResult.data.results;
+    const postData = postListResult.data.results;
+    const totalPostsData = postListResult.data.totalPosts;
+    const numPagesPagesData = Math.ceil(totalPostsData / 4);
+    // console.log(postListResult);
 
-    // const blogPostAuthors = await getAuthors(blogPosts);
-    // console.log(blogPostAuthors);
-
-    // const functionWithPromise = item => {
-    //   return Promise.resolve(item);
-    // };
-    
-    // const anAsyncFunction = async item => {
-    //   return functionWithPromise(item);
-    // };
-    
-    // const getData = async () => {
-    //   return Promise.all(blogPosts.map(post => getUser(post.author)));
-    // };
-    
-    // let blogPostAuthors;
-    // Promise.all(blogPosts.map(post => getUser(post.author))).then(data => {
-    //   const auths = data.map(u => u.data);
-    //   blogPostAuthors = auths.map(u => u.user);
-    //   console.log(blogPostAuthors);
-    // });
-
-    // console.log(blogPostAuthors);
-
-    // const blogPostAuthors = await getAuthors(blogPosts);
-
-    if (blogPosts.length > 0) {
-      setTotalPosts(blogPosts.totalPosts);
-      setPosts(blogPosts);
+    if (postListResult.data.results.length > 0) {
+      setPosts(postListResult.data.results);
+      setTotalPosts(totalPostsData);
+      setNumPages(numPagesPagesData);
     }
   };
 
@@ -67,7 +44,7 @@ export default function PostList() {
   }, []);
   
   const updatePageHandler = async pageNum => {
-    const updatePageResult = await updatePage(pageNum);
+    const updatePageResult = await getPostList(pageNum);
 
     if (updatePageResult.data.results.length > 0) {
       setPosts(updatePageResult.data.results);
@@ -77,11 +54,11 @@ export default function PostList() {
 
   const handlePostList = () => {
     // return posts.blogPosts.map((post, i) => (<Post post={post} author={posts.blogPostAuthors[i]} key={post._id} />));
-    return posts.map(post => (<Post post={post} key={post._id} />));
+    return posts.map(post => <Post post={post} key={post._id} />);
   };
 
   const handlePagination = () => {
-    return totalPosts > 4 ? <Pagination pages={numOfPages} updatePage={updatePageHandler} currentPage={currentPage} /> : '';
+    return totalPosts > 4 ? <Pagination pages={numPages} updatePage={updatePageHandler} currentPage={currentPage} /> : '';
   };
 
   return (

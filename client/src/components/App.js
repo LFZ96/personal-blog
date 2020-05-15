@@ -54,13 +54,13 @@ export default function App() {
   }, []);
 
   return (
-    <div className="container">
-      <AuthContext.Provider value={{ auth, setAuth, user, setUser }}>
-        <Router>
-          <Navbar />
-          <Routes />
-        </Router>
-      </AuthContext.Provider>
-    </div>
+      <div className="container">
+        <AuthContext.Provider value={{ auth, setAuth, user, setUser }}>
+          <Router>
+            <Navbar />
+            <Routes />
+          </Router>
+        </AuthContext.Provider>
+      </div>
   );
 }

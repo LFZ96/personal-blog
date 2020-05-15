@@ -2,8 +2,21 @@
   background-color: #18243B;
 }
 
+.container-fluid {
+  margin: 0;
+  padding: 0;
+}
+
 .navbar {
-  box-shadow: ;
+  font-size: 1.2rem;
+}
+
+.navbar .text-primary {
+  color: #43cff1;
+}
+
+.navbar .navbar-brand {
+  margin-left: 2rem;
 }
 
 .bg-custom-dark {
