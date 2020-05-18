@@ -65,3 +65,8 @@ export const getPostList = async currentPage => {
   const result = axios.get(`/api/posts?page=${currentPage}`)
   return result;
 };
+
+export const getAuth = async id => {
+  const result = axios.post('/api/user', id);
+  return result;
+};

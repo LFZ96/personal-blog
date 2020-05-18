@@ -50,6 +50,8 @@ export default function App() {
   };
 
   useEffect(() => {
+    console.log(auth);
+    console.log(user);
     readSession();
   }, []);
 

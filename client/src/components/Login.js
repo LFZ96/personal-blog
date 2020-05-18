@@ -30,7 +30,7 @@ export default function Login() {
   };
 
   return (
-    <div className="card w-25 mx-auto">
+    <div className="card w-50 mx-auto">
       <div className="card-body">
         <h1 className="card-title text-center">Login</h1>
         <form onSubmit={handleLogin} autoComplete="off">

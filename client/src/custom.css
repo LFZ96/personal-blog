@@ -11,10 +11,6 @@
   font-size: 1.2rem;
 }
 
-.navbar .text-primary {
-  color: #43cff1;
-}
-
 .navbar .navbar-brand {
   margin-left: 2rem;
 }
@@ -24,30 +20,79 @@
 }
 
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
-  background-color: #43cff1 !important;
-  border-color: #43cff1;
-  color: #20304F;
+  background-color: #283C63 !important;
+  border-color: #283C63;
+  color: #ffffff;
   font-weight: 600;
 }
 
 .btn-primary:hover, .btn-primary:active {
-  background-color: #3cbad9 !important;
-  border-color: #3cbad9;
+  background-color: #20304F !important;
+  border-color: #20304F;
+}
+
+.btn-secondary, .btn-secondary:hover, .btn-secondary:active, .btn-secondary:visited {
+  background-color: #43cff1 !important;
+  border-color: #43cff1;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.btn-secondary:hover, .btn-secondary:active {
+  background-color: #3cc0e0 !important;
+  border-color: #3cc0e0;
 }
 
 .card {
-  background-color: #D4D8DF;
+  background-color: rgb(241, 243, 247);
 }
 
 .card-title {
   color: #18243B;
+  text-decoration: underline;
+  text-decoration-color: #F85F73;
+  font-size: 2.3rem;
 }
 
 .card-subtitle {
-  color: #404143;
+  color: rgb(111, 124, 150);
+  font-size: 0.9rem;
 }
 
 .card-text {
   color: #151616;
   font-weight: 600;
+}
+
+.pagination>li.active>a {
+  background-color: #F85F73 !important;
+}
+
+.pagination > li > a
+{
+    background-color: white;
+    color: #283C63;
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+    color: #18243B;
+    background-color: #D4D8DF;
+    border-color: #D4D8DF;
+}
+
+.pagination > .active > a
+{
+    color: white;
+    background-color: #F85F73 !Important;
+    border: solid 1px #F85F73 !Important;
+}
+
+.pagination > .active > a:hover
+{
+    background-color: #F85F73 !Important;
+    border: solid 1px #F85F73;
 } */

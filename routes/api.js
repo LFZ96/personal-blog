@@ -22,6 +22,15 @@ router.get('/posts', paginatedResults(Post), (req, res) => {
 });
 
 router.get('/:slug', async(req, res) => {
+  // Post.
+  //   findOne({ slug: req.params.slug }).
+  //   populate('author').
+  //   exec(function (err, post) {
+  //     if (err) return handleError(err);
+
+  //     res.json(post);
+  //   });
+
   try {
     const post = await Post.findOne({ slug: req.params.slug });
 
@@ -32,20 +41,73 @@ router.get('/:slug', async(req, res) => {
 });
 
 router.post('/new', async (req, res) => {
+
+  const authId = req.body.author;
+  const { title, description, body } = req.body;
+
+  const author = await User.findById(authId);
+
   const newPost = new Post({
-    author: req.body.author,
-    title: req.body.title,
-    description: req.body.description,
-    body: req.body.body
+    author: author._id,
+    title,
+    description,
+    body
   });
 
   try {
     const post = await newPost.save();
 
-    res.status(201).json({ success: true, postId: post._id });
+    try {
+      author.posts.push(post);
+
+      await author.save();
+
+      res.json({ success: true });
+    } catch (err) {
+      res.status(500).json({ success: false, error: err });
+    }
   } catch (err) {
     res.status(500).json({ success: false, error: err });
   }
+
+
+  // try {
+  //   await author.save(async () => {
+  //     const newPost = new Post({
+  //       author: author._id,
+  //       title,
+  //       description,
+  //       body
+  //     });
+
+  //     try {
+  //       const post = await newPost.save();
+
+  //       author.posts.push(post);
+  //     } catch (err) {
+  //       res.status(500).json({ success: false, error: err });
+  //     }
+
+  //     res.status(201).json({ success: true });
+  //   });
+  // } catch (err) {
+  //   res.status(500).json({ success: false, error: err });
+  // }
+  // const newPost = new Post({
+  //   author: req.body.author,
+  //   title: req.body.title,
+  //   description: req.body.description,
+  //   body: req.body.body
+  // });
+
+  // try {
+  //   const post = await newPost.save();
+
+
+  //   res.status(201).json({ success: true, postId: post._id });
+  // } catch (err) {
+  //   res.status(500).json({ success: false, error: err });
+  // }
 });
 
 router.post('/:slug/edit', async (req, res) => {

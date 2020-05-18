@@ -7,6 +7,8 @@ const { JSDOM } = require('jsdom');
 const Schema = mongoose.Schema;
 const dompurify = createDOMPurify(new JSDOM().window);
 
+const User = require('./User');
+
 const PostSchema = new Schema({
   author: {
     type: Schema.Types.ObjectId,

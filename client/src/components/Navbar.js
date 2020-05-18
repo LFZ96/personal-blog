@@ -10,7 +10,7 @@ export default function Navbar() {
   const handleLogout = async e => {
     const logoutResult = await logout();
 
-    authApi.setAuth(logoutResult.data.auth);
+    authApi.setAuth(false);
     authApi.setUser(null);
   };
 
@@ -43,9 +43,9 @@ export default function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light mb-4">
 
-    <span className="navbar-brand">
-      <img src="logo.svg" width="50" height="50" alt="" />
-    </span>
+      {/* <span className="navbar-brand">
+        <img src="logo.svg" width="50" height="50" alt="" />
+      </span> */}
 
       <div className="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
         <ul className="navbar-nav mr-auto">
