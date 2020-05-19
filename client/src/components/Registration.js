@@ -39,9 +39,10 @@ class Registration extends Component {
     axios.post('/auth/register', user)
       .then(res => {
         console.log(res.data);
-        if (res.data.success === true) {
-          window.location = '/users/login';
-        }
+        // if (res.data.success === true) {
+        //   window.location = '/users/login';
+        // }
+        window.location = '/users/login';
         // } else {
         //   throw new Error('Registration unsuccessful');
         // }
