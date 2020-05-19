@@ -5,19 +5,15 @@ const Schema = mongoose.Schema;
 const Post = require('./Post');
 
 const UserSchema = new Schema({
-  name: {
-    first: {
-      type: String,
-      required: true
-    },
-    last: {
-      type: String,
-      required: true
-    }
+  username: {
+    type: String,
+    required: true,
+    unique: true
   },
   email: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   password: {
     type: String,
@@ -28,10 +24,6 @@ const UserSchema = new Schema({
     ref: 'Post'
   }]
 }, { timestamps: true });
-
-UserSchema.virtual('fullName').get(function() {
-  return `${this.name.first} ${this.name.last}`;
-});
 
 const User = mongoose.model('User', UserSchema);
 

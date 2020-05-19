@@ -3,8 +3,7 @@ const Joi = require('@hapi/joi');
 
 const validateRegistration = user => {
   const schema = Joi.object({
-    firstName: Joi.string().alphanum().min(2).max(30).required(),
-    lastName: Joi.string().alphanum().min(2).max(30).required(),
+    username: Joi.string().alphanum().min(2).max(16).required(),
     email: Joi.string().email().required(),
     password: Joi.string().pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,64})/)
   });

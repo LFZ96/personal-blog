@@ -12,9 +12,7 @@ class Registration extends Component {
   };
 
   // handleChangeUsername = e => this.setState({ username: e.target.value });
-  handleChangeFirstName = e => this.setState({ firstName: e.target.value });
-
-  handleChangeLastName = e => this.setState({ lastName: e.target.value });
+  handleChangeUsername = e => this.setState({ username: e.target.value });
 
   handleChangeEmail = e => this.setState({ email: e.target.value });
 
@@ -33,9 +31,7 @@ class Registration extends Component {
     e.preventDefault();
 
     const user = {
-      // username: this.state.username,
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
+      username: this.state.username,
       email: this.state.email,
       password: this.state.password
     };
@@ -71,7 +67,7 @@ class Registration extends Component {
                 name="username"
               />
             </div> */}
-            <div className="form-row">
+            {/* <div className="form-row">
               <div className="form-group col-md-6">
                 <label htmlFor="first-name">First Name</label>
                 <input
@@ -95,6 +91,18 @@ class Registration extends Component {
                   name="last"
                 />
               </div>
+            </div> */}
+
+            <div className="form-group">
+              <label htmlFor="username">Username</label>
+              <input
+                type="text"
+                value={this.state.username}
+                onChange={this.handleChangeUsername}
+                className="form-control"
+                id="username"
+                name="username"
+              />
             </div>
 
             <div className="form-group">

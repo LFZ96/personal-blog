@@ -10,9 +10,10 @@ function Post(props) {
       <div className="card-body">
         <h2 className="card-title">{props.post.title}</h2>
         {/* <h6 className="card-subtitle text-muted mb-2">Written by {props.post.author} on {props.post.createdAt.substring(0, 10)}</h6> */}
-        <h6 className="card-subtitle mb-4">By {props.post.author} on {formatDate(props.post.createdAt)}</h6>
+        <h6 className="card-subtitle mb-4">By {props.post.author.username } on {formatDate(props.post.createdAt)}</h6>
         <p className="card-text">{props.post.description}</p>
         <Link to={`/posts/${props.post.slug}`} className="btn btn-primary">Read More</Link>
+        {/* <Link to={`/posts/${props.post.author.username}/${props.post.slug}`} className="btn btn-primary">Read More</Link> */}
       </div>
     </div>
   );

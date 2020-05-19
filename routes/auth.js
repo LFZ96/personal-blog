@@ -18,7 +18,7 @@ router.post('/login', async (req, res) => {
     if (isValid) {
       const sessionUser = {
         userId: user._id,
-        username: user.fullName
+        username: user.username
       };
 
       req.session.user = sessionUser;
@@ -36,15 +36,23 @@ router.post('/login', async (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { username, email, password } = req.body;
 
   // Validate user's registration inputs
-  const { error } = validateRegistration({ firstName, lastName, email, password });
+  const { error } = validateRegistration({ username, email, password });
+
   if (error) {
     return res.status(400).json({ success: false, message: error.details[0].message })
   }
 
   try {
+    // Check to see if user's username input already exists in database
+    const invalidUsername = await User.findOne({ username });
+
+    if (invalidUsername) {
+      return res.status(400).json({ success: false, message: 'Username already in use' });
+    }
+
     // Check to see if user's email input already exists in database
     const invalidEmail = await User.findOne({ email });
 
@@ -58,10 +66,7 @@ router.post('/register', async (req, res) => {
 
     // Create new user from user's valid registration inputs
     const newUser = new User({
-      name: {
-        first: firstName,
-        last: lastName
-      },
+      username,
       email,
       password: hash
     });

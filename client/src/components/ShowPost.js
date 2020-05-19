@@ -17,11 +17,11 @@ export default function ShowPost(props) {
 
   const renderPost = async () => {
     const getPostResult = await getPost(props.match.params.slug);
-    setPostAuthorId(getPostResult.data.author);
+    setPostAuthorId(getPostResult.data.author._id);
     const post = getPostResult.data;
 
     setTitle(post.title);
-    setAuthor(post.author);
+    setAuthor(post.author.username);
     setCreatedAt(post.createdAt);
     setSlug(post.slug);
     setSanitizedHTML(post.sanitizedHTML);

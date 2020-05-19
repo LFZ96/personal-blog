@@ -58,6 +58,9 @@ export default function Navbar() {
       
       <div className="navbar-collapse collapse w-100 order-2 dual-collapse2">
         <ul className="navbar-nav ml-auto">
+          {/* <li className="nav-item">
+            <Link to={`/${}`} className="nav-link">My Posts</Link>
+          </li> */}
          {renderAuthButton()}
         </ul>
       </div>

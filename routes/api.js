@@ -3,12 +3,18 @@ const router = require('express').Router();
 const Post = require('./../models/Post');
 const User = require('./../models/User');
 
-router.post('/user', async (req, res) => {
-  const { id } = req.body;
-  const user = await User.findOne({ id});
+// router.post('/user', async (req, res) => {
+//   const { id } = req.body;
+//   const user = await User.findOne({ id});
 
-  return res.json({ user: user });
-});
+//   return res.json({ user: user });
+// });
+
+// router.get('/personal-posts', (req, res) => {
+//   const posts = await Post.find({ authorUsername: req.params.author.username });
+
+//   res.json(posts);
+// });
 
 router.get('/posts', paginatedResults(Post), (req, res) => {
   // try {
@@ -30,14 +36,22 @@ router.get('/:slug', async(req, res) => {
 
   //     res.json(post);
   //   });
-
+  
   try {
-    const post = await Post.findOne({ slug: req.params.slug });
+    const post = await Post.findOne({ slug: req.params.slug }).populate('author').exec();
 
     res.json(post);
   } catch (err) {
-    res.status(400).json({ error: err });
+    res.json({ error: err });
   }
+
+  // try {
+  //   const post = await Post.findOne({ slug: req.params.slug });
+
+  //   res.json(post);
+  // } catch (err) {
+  //   res.status(400).json({ error: err });
+  // }
 });
 
 router.post('/new', async (req, res) => {
@@ -128,6 +142,14 @@ router.post('/:slug/edit', async (req, res) => {
 });
 
 router.delete('/:slug', async (req, res) => {
+  // const postToDelete = await Post.findOne({ slug: req.params.slug });
+
+  // const user = await User.findById(postToDelete.author._id);
+
+  // user.posts.map(post => )
+
+
+
   try {
     await Post.findOneAndDelete({ slug: req.params.slug });
 
@@ -164,7 +186,7 @@ function paginatedResults(model) {
     results.totalPosts = totalPosts;
 
     try {
-      results.results = await model.find().sort({ createdAt: 'desc' }).limit(limit).skip(startIndex).exec();
+      results.results = await model.find().populate('author').sort({ createdAt: 'desc' }).limit(limit).skip(startIndex).exec();
 
       res.paginatedResults = results;
 
@@ -172,6 +194,16 @@ function paginatedResults(model) {
     } catch (err) {
       res.status(500).json({ message: err.message });
     }
+
+    // try {
+    //   results.results = await model.find().sort({ createdAt: 'desc' }).limit(limit).skip(startIndex).exec();
+
+    //   res.paginatedResults = results;
+
+    //   next();
+    // } catch (err) {
+    //   res.status(500).json({ message: err.message });
+    // }
   };
 }
 
