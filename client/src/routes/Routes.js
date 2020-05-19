@@ -22,9 +22,6 @@ export default function Routes() {
         <ProtectedRoute path="/posts/new" component={NewPost} />
         <ProtectedRoute path="/posts/:slug/edit" component={EditPost} />
         <Route path="/posts/:slug" component={ShowPost} />
-      </Switch>
-
-      <Switch>
         <UnprotectedRoute path="/users/login" component={Login} />
         <UnprotectedRoute path="/users/register" component={Registration} />
       </Switch>
