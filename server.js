@@ -39,8 +39,8 @@ app.use(session({
     ttl: parseInt(1000 * 60 * 60 * 24) / 1000
   }),
   cookie: {
-    sameSite: true,
-    secure: process.env.NODE_ENV === 'production',
+    // sameSite: true,
+    // secure: process.env.NODE_ENV === 'production',
     // maxAge: parseInt(process.env.SESS_LIFETIME || 1000 * 60 * 60 * 24)
     maxAge: parseInt(1000 * 60 * 60 * 24)
   }
