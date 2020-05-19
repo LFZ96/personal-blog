@@ -35,12 +35,12 @@ app.use(session({
   store: new MongoStore({
     mongooseConnection: db,
     collection: 'session',
-    // ttl: parseInt(process.env.SESS_LIFETIME || 1000 * 60 * 60 * 24) / 1000
+    ttl: parseInt(process.env.SESS_LIFETIME || 1000 * 60 * 60 * 24) / 1000
   }),
   cookie: {
     sameSite: true,
     secure: process.env.NODE_ENV === 'production',
-    // maxAge: parseInt(process.env.SESS_LIFETIME || 1000 * 60 * 60 * 24)
+    maxAge: parseInt(process.env.SESS_LIFETIME || 1000 * 60 * 60 * 24)
   }
 }));
 
