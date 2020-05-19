@@ -48,9 +48,17 @@ app.use(session({
 app.use('/auth', authRouter);
 app.use('/api', apiRouter);
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'client/build')));
-}
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'client/build/'), function(err) {
+    if (err) {
+      res.status(500).send(err)
+    }
+  })
+})
+
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.join(__dirname, 'client/build')));
+// }
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}.`));
