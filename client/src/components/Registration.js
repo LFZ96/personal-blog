@@ -40,7 +40,7 @@ class Registration extends Component {
       .then(res => {
         console.log(res.data);
         if (res.data.success === true) {
-          window.location = '/users/login'
+          window.location = '/users/login';
         }
         // } else {
         //   throw new Error('Registration unsuccessful');
