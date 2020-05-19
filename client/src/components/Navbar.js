@@ -8,7 +8,7 @@ export default function Navbar() {
   const authApi = useContext(AuthContext);
 
   const handleLogout = async e => {
-    const logoutResult = await logout();
+    await logout();
 
     authApi.setAuth(false);
     authApi.setUser(null);
