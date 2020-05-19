@@ -48,14 +48,6 @@ app.use(session({
 app.use('/auth', authRouter);
 app.use('/api', apiRouter);
 
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname, '/client/public/'), function(err) {
-    if (err) {
-      res.status(500).send(err)
-    }
-  })
-})
-
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build')));
 }
