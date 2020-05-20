@@ -17,8 +17,9 @@ body {
 }
 
 .navbar-light .navbar-nav .nav-link:active,
-.navbar-light .navbar-nav .nav-link:hover {
-  color: #3cc5e7;
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link:focus {
+  color: #F85F73;
 }
 
 /*---------- BUTTONS ------------- */

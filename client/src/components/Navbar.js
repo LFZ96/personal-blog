@@ -34,7 +34,7 @@ export default function Navbar() {
     } else {
       return (
         <li className="nav-item">
-          <Link to="/users/login" className="nav-link btn btn-primary text-light">Login</Link>
+          <Link to="/users/login" className="nav-link btn btn-secondary text-light">Login</Link>
         </li>
       );
     }

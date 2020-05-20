@@ -40,7 +40,7 @@ export default function ShowPost(props) {
       if (authApi.user.userId === postAuthorId) {
         return (
           <>
-            <Link to={`/posts/${slug}/edit`} className="btn btn-primary mr-2">Edit</Link>
+            <Link to={`/posts/${slug}/edit`} className="btn btn-secondary mr-2">Edit</Link>
             <a href="/" className="btn btn-danger" onClick={handleDeletion}>Delete</a>
           </>
         );

@@ -68,7 +68,7 @@ export default function NewPost() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="body">Body</label>
+            <label htmlFor="body">Body (Markdown) <a href="https://www.markdownguide.org/cheat-sheet/" target="_blank">What's markdown?</a></label>
             <textarea
               name="body"
               id="body"

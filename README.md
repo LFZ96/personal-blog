@@ -11,21 +11,25 @@ I graduated from college back in December, and since then I have focused my time
 - [x] Figure out how to use async/await for api router's edit and delete requests
   - [x] Use async/await with delete post
   - [x] Use async/await with edit post
-- [ ] Add authentication/authorization for private user functionality
+- [x] Add authentication/authorization for private user functionality
   - [x] Create a Login React component that's accessible from navbar
   - [x] Create a Registration React component that's accessible from the Login component
     - [ ] Implement error handling for users
   - [x] Validate user's email and password inputs in database
-  - [ ] Implement sessions and cookies for authorization
-    -[ ] Cancel cookie on clientside
-  - [ ] Allow registered users to create posts, edit their own posts, and delete their own posts
-  - [ ] Allow users who have not registered to only read others' posts
+  - [x] Implement sessions and cookies for authorization
+    -[x] Cancel cookie on clientside
+  - [x] Allow registered users to create posts, edit their own posts, and delete their own posts
+  - [x] Allow users who have not registered to only read others' posts
 - [ ] Add custom CSS to the Bootstrap styles that match more closely to my own personal site
   - [x] Add 'LZ' logo to favicon
   - [ ] Add 'LZ' logo to navbar next to 'posts'
-  - [ ] Add darker colors from personal site to the background
-  - [ ] Change navbar buttons to appear more like personal site's
+  - [x] Add darker colors from personal site to the background
+  - [x] Change navbar buttons to appear more like personal site's
 - [x] Add pagination to the post list page where only 10 posts per page are allowed
 - [x] Add markdown to posts' body to allow for a richer experience
   - [x] Update Post model to include sanitized HTML for markdown
   - [x] Update ShowPost React component to show sanitized HTML instead of body
+- [x] Persist active color for navbar links
+- [x] Find a way to let users know that markdown is allowed for post body
+- [x] Change login button styles
+- [ ] Make the navbar responsive
