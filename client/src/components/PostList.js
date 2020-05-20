@@ -6,7 +6,7 @@ import { getPostList, formatDate } from './../utils/requestsHelper';
 
 function Post(props) {
   return (
-    <div className="card mx-auto w-75 mb-3">
+    <div className="card mx-auto w-75 mb-4">
       <div className="card-body">
         <h2 className="card-title">{props.post.title}</h2>
         <h6 className="card-subtitle mb-4">By {props.post.author.username } on {formatDate(props.post.createdAt)}</h6>

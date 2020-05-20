@@ -27,12 +27,12 @@ export default function Registration() {
   };
 
   const handleRegistrationAlert = message => {
-    console.log(message);
-    // return (
-    //   <div className="alert alert-danger" role="alert">
-    //     {message}
-    //   </div>
-    // );
+    // console.log(message);
+    return (
+      <div className="alert alert-danger" role="alert">
+        {message}
+      </div>
+    );
   };
 
   const handleRegistration = e => {
@@ -59,7 +59,7 @@ export default function Registration() {
       <div className="card-body">
         <h1 className="card-title text-center mb-4">Register</h1>
 
-        {/* {handleRegistrationAlert("That email already exists")} */}
+        {handleRegistrationAlert("That email already exists")}
 
         <form autoComplete="off" onSubmit={handleRegistration}>
           <div className="form-group">
