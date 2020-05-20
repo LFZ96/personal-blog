@@ -4,7 +4,7 @@ import Pagination from './Pagination';
 import PostCard from './PostCard';
 import { getPostList } from './../utils/requestsHelper';
 
-export default function PostList() {
+export default function MyPosts() {
   const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPosts, setTotalPosts] = useState(0);
@@ -26,7 +26,7 @@ export default function PostList() {
   useEffect(() => {
     renderPostList();
   }, []);
-  
+
   const updatePageHandler = async pageNum => {
     const updatePageResult = await getPostList(pageNum);
 
@@ -45,9 +45,7 @@ export default function PostList() {
   };
 
   return (
-    <>
-      {handlePostList()}
-      {handlePagination()}
-    </>
+    <div>Hello</div>
   );
+
 }

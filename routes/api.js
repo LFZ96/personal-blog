@@ -46,45 +46,6 @@ router.post('/new', async (req, res) => {
   } catch (err) {
     res.status(500).json({ success: false, error: err });
   }
-
-
-  // try {
-  //   await author.save(async () => {
-  //     const newPost = new Post({
-  //       author: author._id,
-  //       title,
-  //       description,
-  //       body
-  //     });
-
-  //     try {
-  //       const post = await newPost.save();
-
-  //       author.posts.push(post);
-  //     } catch (err) {
-  //       res.status(500).json({ success: false, error: err });
-  //     }
-
-  //     res.status(201).json({ success: true });
-  //   });
-  // } catch (err) {
-  //   res.status(500).json({ success: false, error: err });
-  // }
-  // const newPost = new Post({
-  //   author: req.body.author,
-  //   title: req.body.title,
-  //   description: req.body.description,
-  //   body: req.body.body
-  // });
-
-  // try {
-  //   const post = await newPost.save();
-
-
-  //   res.status(201).json({ success: true, postId: post._id });
-  // } catch (err) {
-  //   res.status(500).json({ success: false, error: err });
-  // }
 });
 
 router.post('/:slug/edit', async (req, res) => {
@@ -116,14 +77,6 @@ router.delete('/:slug', async (req, res) => {
   } catch (err) {
     res.status(500).json({ success: false, error: err });
   }
-
-  // try {
-  //   await Post.findOneAndDelete({ slug: req.params.slug });
-
-  //   res.json({ success: true });
-  // } catch (err) {
-  //   res.status(500).json({ success: false, error: err });
-  // }
 });
 
 function paginatedResults(model) {

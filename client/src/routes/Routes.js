@@ -11,6 +11,7 @@ import EditPost from './../components/EditPost';
 import ShowPost from './../components/ShowPost';
 import Login from './../components/Login';
 import Registration from './../components/Registration';
+// import MyPosts from './../components/MyPosts';
 import AuthContext from './../utils/AuthContext';
 
 export default function Routes() {
@@ -19,6 +20,7 @@ export default function Routes() {
       <Route path="/" exact component={PostList} />
 
       <Switch>
+        {/* <ProtectedRoute path="posts/my-posts" component={MyPosts} /> */}
         <ProtectedRoute path="/posts/new" component={NewPost} />
         <ProtectedRoute path="/posts/:slug/edit" component={EditPost} />
         <Route path="/posts/:slug" component={ShowPost} />

@@ -27,9 +27,15 @@ export default function Navbar() {
   const renderAuthButton = () => {
     if (authApi.auth) {
       return (
-        <li className="nav-item">
-          <button className="nav-link btn btn-danger text-light" onClick={handleLogout}>Logout</button>
-        </li>
+        <>
+          {/* <li className="nav-item">
+            <Link to={`/posts/my-posts`} className="nav-link mr-2">My Posts</Link>
+          </li> */}
+
+          <li className="nav-item">
+            <button className="nav-link btn btn-danger text-light" onClick={handleLogout}>Logout</button>
+          </li>
+        </>
       );
     } else {
       return (
@@ -58,9 +64,6 @@ export default function Navbar() {
       
       <div className="navbar-collapse collapse w-100 order-2 dual-collapse2">
         <ul className="navbar-nav ml-auto">
-          {/* <li className="nav-item">
-            <Link to={`/${}`} className="nav-link">My Posts</Link>
-          </li> */}
          {renderAuthButton()}
         </ul>
       </div>

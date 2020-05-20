@@ -9,7 +9,6 @@ router.post('/login', async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      console.log('User login unsuccessful: Email not found');
       return res.json({ success: false, message: 'Email or password incorrect'});
     }
   
@@ -23,14 +22,11 @@ router.post('/login', async (req, res) => {
 
       req.session.user = sessionUser;
 
-      console.log('User login successful');
       res.status(200).json({ success: true, user: sessionUser });
     } else {
-      console.log('User login unsuccessful: Incorrect password');
       res.json({ success: false, message: 'Email or password incorrect' });
     }
   } catch (err) {
-    console.log('Oops! Something went wrong!');
     res.status(500).json({ error: err.message });
   }
 });
@@ -42,8 +38,6 @@ router.post('/register', async (req, res) => {
   const { error } = validateRegistration({ username, email, password });
 
   if (error) {
-    // console.log(error.message);
-    // return res.json({ success: false, message: error.details[0].message })
     return res.json({ success: false, message: error.message });
   }
 
@@ -59,7 +53,6 @@ router.post('/register', async (req, res) => {
     const invalidEmail = await User.findOne({ email });
 
     if (invalidEmail) {
-      console.log('That email already exists');
       return res.json({ success: false, message: 'Email already exists' });
     }
 
@@ -76,10 +69,8 @@ router.post('/register', async (req, res) => {
     // Save the user to the database
     const user = await newUser.save();
 
-    console.log('New user registered successfully')
     res.status(200).json({ success: true, userId: user._id });
   } catch (err) {
-    console.log('Registration unsuccessful');
     res.json({ success: false, message: err.message });
   }
 });
@@ -94,7 +85,6 @@ router.get('/isAuthenticated', (req, res) => {
 
 router.get('/logout', (req, res) => {
   if (req.session.user) {
-    console.log('Destroying session');
     req.session.destroy();
     res.json({ auth: false });
   }
