@@ -8,6 +8,7 @@ const MongoStore = require('connect-mongo')(session);
 
 const authRouter = require('./routes/auth');
 const apiRouter = require('./routes/api');
+const routes = require('./routes');
 
 const app = express();
 
@@ -45,8 +46,11 @@ app.use(session({
   }
 }));
 
-app.use('/auth', authRouter);
-app.use('/api', apiRouter);
+app.use(express.static('client/build'));
+
+app.use(routes);
+// app.use('/auth', authRouter);
+// app.use('/api', apiRouter);
 
 // app.get('/*', function(req, res) {
 //   res.sendFile(path.join(__dirname, '/client/build'), function(err) {
@@ -56,9 +60,9 @@ app.use('/api', apiRouter);
 //   })
 // })
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'client/build')));
-}
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.join(__dirname, 'client/build')));
+// }
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}.`));
