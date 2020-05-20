@@ -10,7 +10,7 @@ router.post('/login', async (req, res) => {
 
     if (!user) {
       console.log('User login unsuccessful: Email not found');
-      return res.status(400).json({ success: false, message: 'Email or password incorrect'});
+      return res.json({ success: false, message: 'Email or password incorrect'});
     }
   
     const isValid = validatePassword(password, user.password);
@@ -27,7 +27,7 @@ router.post('/login', async (req, res) => {
       res.status(200).json({ success: true, user: sessionUser });
     } else {
       console.log('User login unsuccessful: Incorrect password');
-      res.status(400).json({ success: false, message: 'Email or password incorrect' });
+      res.json({ success: false, message: 'Email or password incorrect' });
     }
   } catch (err) {
     console.log('Oops! Something went wrong!');
@@ -42,7 +42,9 @@ router.post('/register', async (req, res) => {
   const { error } = validateRegistration({ username, email, password });
 
   if (error) {
-    return res.status(400).json({ success: false, message: error.details[0].message })
+    // console.log(error.message);
+    // return res.json({ success: false, message: error.details[0].message })
+    return res.json({ success: false, message: error.message });
   }
 
   try {
@@ -50,7 +52,7 @@ router.post('/register', async (req, res) => {
     const invalidUsername = await User.findOne({ username });
 
     if (invalidUsername) {
-      return res.status(400).json({ success: false, message: 'Username already in use' });
+      return res.json({ success: false, message: 'Username already exists' });
     }
 
     // Check to see if user's email input already exists in database
@@ -58,7 +60,7 @@ router.post('/register', async (req, res) => {
 
     if (invalidEmail) {
       console.log('That email already exists');
-      return res.status(400).json({ success: false, message: 'Email already in use' });
+      return res.json({ success: false, message: 'Email already exists' });
     }
 
     // Hash the user's password input
@@ -78,7 +80,7 @@ router.post('/register', async (req, res) => {
     res.status(200).json({ success: true, userId: user._id });
   } catch (err) {
     console.log('Registration unsuccessful');
-    res.status(500).json({ success: false, message: err.message });
+    res.json({ success: false, message: err.message });
   }
 });
 

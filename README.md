@@ -14,7 +14,7 @@ I graduated from college back in December, and since then I have focused my time
 - [x] Add authentication/authorization for private user functionality
   - [x] Create a Login React component that's accessible from navbar
   - [x] Create a Registration React component that's accessible from the Login component
-    - [ ] Implement error handling for users
+    - [x] Implement error handling for users
   - [x] Validate user's email and password inputs in database
   - [x] Implement sessions and cookies for authorization
     -[x] Cancel cookie on clientside
@@ -22,7 +22,7 @@ I graduated from college back in December, and since then I have focused my time
   - [x] Allow users who have not registered to only read others' posts
 - [ ] Add custom CSS to the Bootstrap styles that match more closely to my own personal site
   - [x] Add 'LZ' logo to favicon
-  - [ ] Add 'LZ' logo to navbar next to 'posts'
+  - [x] Add 'LZ' logo to navbar next to 'posts'
   - [x] Add darker colors from personal site to the background
   - [x] Change navbar buttons to appear more like personal site's
 - [x] Add pagination to the post list page where only 10 posts per page are allowed
@@ -33,3 +33,4 @@ I graduated from college back in December, and since then I have focused my time
 - [x] Find a way to let users know that markdown is allowed for post body
 - [x] Change login button styles
 - [ ] Make the navbar responsive
+- [x] Delete posts from user arrays when user deletes post

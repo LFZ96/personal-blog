@@ -6,6 +6,7 @@ export default function Registration() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState();
 
   const handleChange = e => {
     if (e.target.name === 'username') {
@@ -28,11 +29,17 @@ export default function Registration() {
 
   const handleRegistrationAlert = message => {
     // console.log(message);
-    return (
-      <div className="alert alert-danger" role="alert">
-        {message}
-      </div>
-    );
+    if (message) {
+      return (
+        <div className="alert alert-danger" role="alert">
+          {message}
+        </div>
+      );
+    } else {
+      return (
+        <div></div>
+      );
+    }
   };
 
   const handleRegistration = e => {
@@ -49,9 +56,11 @@ export default function Registration() {
         console.log(res.data);
         if (res.data.success === true) {
           window.location = '/users/login';
+        } else {
+          setError(res.data.message);
         }
       })
-      .catch(err => handleRegistrationAlert(err));
+      .catch(err => console.log(err));
   };
 
   return (
@@ -59,7 +68,7 @@ export default function Registration() {
       <div className="card-body">
         <h1 className="card-title text-center mb-4">Register</h1>
 
-        {/* {handleRegistrationAlert("That email already exists")} */}
+        {handleRegistrationAlert(error)}
 
         <form autoComplete="off" onSubmit={handleRegistration}>
           <div className="form-group">

@@ -81,7 +81,7 @@ export default function NewPost() {
             </textarea>
           </div>
 
-          <button type="submit" className="btn btn-primary">Save</button>
+          <button type="submit" className="btn btn-primary">Post</button>
         </form>
       </div>
     </div>

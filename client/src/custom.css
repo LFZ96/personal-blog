@@ -117,3 +117,9 @@ body {
     background-color: #43cff1 !Important;
     border: solid 1px #43cff1;
 }
+
+/*-------- LOGO --------*/
+.logo {
+  height: 3rem;
+  width: 3rem;
+}

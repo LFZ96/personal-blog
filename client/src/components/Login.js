@@ -7,6 +7,7 @@ import { login } from './../utils/requestsHelper';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState();
 
   const authApi = useContext(AuthContext);
 
@@ -18,6 +19,18 @@ export default function Login() {
     }
   };
 
+  const handleLoginAlert = message => {
+    if (message) {
+      return (
+        <div className="alert alert-danger" role="alert">
+          {message}
+        </div>
+      );
+    } else {
+      return <div></div>;
+    }
+  };
+
   const handleLogin = async e => {
     e.preventDefault();
 
@@ -26,6 +39,8 @@ export default function Login() {
     if (loginResult.data.success) {
       authApi.setAuth(true);
       authApi.setUser(loginResult.data.user);
+    } else {
+      setError(loginResult.data.message);
     }
   };
 
@@ -33,6 +48,9 @@ export default function Login() {
     <div className="card w-50 mx-auto">
       <div className="card-body">
         <h1 className="card-title text-center">Login</h1>
+
+        {handleLoginAlert(error)}
+
         <form onSubmit={handleLogin} autoComplete="off">
           <div className="form-group">
             <label htmlFor="email">Email</label>
