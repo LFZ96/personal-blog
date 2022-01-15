@@ -33,7 +33,7 @@
     "express-session": "^1.17.1",
     "helmet": "3.22.0",
     "jsdom": "^16.2.2",
-    "marked": "^1.0.0",
+    "marked": "^4.0.10",
     "mongoose": "5.9.11",
     "morgan": "1.10.0",
     "slugify": "1.4.0"
